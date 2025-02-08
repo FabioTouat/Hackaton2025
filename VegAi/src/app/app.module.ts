@@ -7,6 +7,8 @@ import { VegAiDashboardComponent } from './pages/homepage/veg-ai-dashboard.compo
 import { PotMonitoringComponent } from './pages/list-page/pot-monitoring.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './pages/register-page/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HeaderComponent } from './components/header/header.component';
     HeaderComponent,
     PotMonitoringComponent,
     VegAiDashboardComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    HttpClientModule,
+    RegisterComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
