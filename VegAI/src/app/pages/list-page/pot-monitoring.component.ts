@@ -112,4 +112,8 @@ export class PotMonitoringComponent {
       console.log('Plante supprimée:', plantToDelete.name);
     }
   }
+
+  onAnalyzeClick() {
+    this.router.navigate(['/dirt-analyze']);
+  }
 }
