@@ -3,11 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { ConnectionPageComponentComponent } from './pages/connection-page/connection-page-component/connection-page-component.component';
+import { VegAiDashboardComponent } from './pages/homepage/veg-ai-dashboard.component';
+import { PotMonitoringComponent } from './pages/list-page/pot-monitoring.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectionPageComponentComponent
+    ConnectionPageComponentComponent,
+    VegAiDashboardComponent,
+    PotMonitoringComponent
   ],
   imports: [
     BrowserModule,

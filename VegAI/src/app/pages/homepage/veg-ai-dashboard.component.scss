@@ -1,0 +1,129 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+
+  &-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &-right {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.welcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: normal;
+  }
+}
+
+.guide-button {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.card {
+  padding: 2rem;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .pot-icon,
+  .profile-icon {
+    font-size: 2rem;
+    color: #666;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+
+  &-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.text-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #666;
+
+  &:hover {
+    color: #333;
+  }
+}

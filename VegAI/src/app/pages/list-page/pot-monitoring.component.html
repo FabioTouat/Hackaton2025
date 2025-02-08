@@ -1,0 +1,98 @@
+<div class="monitoring-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <img src="assets/icons/plant-icon.svg" alt="Plant icon" class="logo-icon">
+      <h1 class="brand">VegAI</h1>
+    </div>
+    <div class="header-right">
+      <button class="icon-button">
+        <i class="fas fa-cog"></i>
+      </button>
+      <button class="icon-button">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fas fa-seedling"></i>
+        <h2>Mes pots</h2>
+      </div>
+      <nav class="pot-list">
+        <a *ngFor="let pot of pots" 
+           [class.active]="pot === selectedPot"
+           href="#">
+          {{ pot }}
+        </a>
+        <a href="#" class="add-pot">
+          <i class="fas fa-plus"></i> Pot
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="pot-details">
+        <h2>{{ selectedPot }}</h2>
+        
+        <div class="plants-section">
+          <div class="section-header">
+            <h3>Mes plantes</h3>
+            <button class="add-button">
+              <i class="fas fa-plus"></i> plante
+            </button>
+          </div>
+          
+          <div class="plant-list">
+            <div *ngFor="let plant of plants" class="plant-item">
+              <span>{{ plant.name }}</span>
+              <button class="info-button">
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="analysis-button">
+          Analyse de la terre
+        </button>
+      </section>
+    </main>
+
+    <!-- Environmental Data Sidebar -->
+    <aside class="env-sidebar">
+      <div class="env-data">
+        <div class="env-item">
+          <h3>Humidité</h3>
+          <div class="circular-progress">
+            {{ environmentalData.humidity }}%
+          </div>
+        </div>
+
+        <div class="env-item">
+          <h3>Température</h3>
+          <div class="temperature">
+            {{ environmentalData.temperature }}°C
+          </div>
+        </div>
+
+        <div class="env-item">
+          <div class="day-night">
+            <div class="time-item">
+              <i class="fas fa-sun"></i>
+              <span>heure lumière: {{ environmentalData.dayHour }}</span>
+            </div>
+            <div class="time-item">
+              <i class="fas fa-moon"></i>
+              <span>heure nuit: {{ environmentalData.nightHour }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

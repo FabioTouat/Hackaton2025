@@ -8,5 +8,9 @@ import { Router, RouterLink } from '@angular/router';
   standalone: false
 })
 export class ConnectionPageComponentComponent {
-  // Component logic here
+  constructor(private router: Router) {}
+
+  redirectToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }
