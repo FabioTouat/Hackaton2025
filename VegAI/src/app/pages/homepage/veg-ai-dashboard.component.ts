@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { CommonModule } from '@angular/common';
-import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { FormsModule } from '@angular/forms';
+import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-veg-ai-dashboard',
@@ -12,11 +13,13 @@ import { HeaderComponent } from '../../components/header/header.component';
   standalone: true,
   imports: [
     CommonModule, 
-    FooterComponent, 
+    HeaderComponent, 
+    FormsModule,
     DashboardCardComponent,
-    HeaderComponent
+    FooterComponent
   ]
 })
+
 export class VegAiDashboardComponent {
   userName = 'User';
 
@@ -28,6 +31,6 @@ export class VegAiDashboardComponent {
 
   goToProfile() {
     // À implémenter quand la route du profil sera créée
-    console.log('Navigation vers le profil');
+   
   }
 }
