@@ -10,12 +10,13 @@
       </div>
       <nav class="pot-list">
         <a *ngFor="let pot of pots" 
-           [class.active]="pot === selectedPot"
-           href="#">
-          {{ pot }}
+           [class.active]="pot.name === selectedPot"
+           (click)="onPotSelect(pot.name)"
+           href="javascript:void(0);">
+          {{ pot.name }}
         </a>
-        <a href="#" class="add-pot">
-          <i class="fas fa-plus"></i> Pot
+        <a href="javascript:void(0)" class="add-pot" (click)="onAddPotClick()">
+          <i class="fas fa-plus"></i> Ajouter un pot
         </a>
       </nav>
     </aside>
@@ -84,7 +85,7 @@
           </div>
 
           <div class="plant-list">
-            <div *ngFor="let plant of plants" class="plant-item">
+            <div *ngFor="let plant of currentPotPlants" class="plant-item">
               <span>{{ plant.name }}</span>
               <div class="plant-actions">
                 <button class="info-button" (click)="onPlantInfo(plant)">
@@ -139,6 +140,30 @@
         </div>
       </div>
     </aside>
+  </div>
+
+  <!-- Ajouter après la nav -->
+  <div class="add-pot-modal" *ngIf="showAddPotForm">
+    <div class="add-pot-content">
+      <h3>Entrer le code de l'appareil</h3>
+      <input 
+        type="text" 
+        [(ngModel)]="newPotCode"
+        [class.invalid]="newPotCode && !isValidPotCode()"
+        placeholder="XXXX-XXXX-XXXX-XXXX"
+        pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}">
+      <div class="error-message" *ngIf="newPotCode && !isValidPotCode()">
+        Entrez un format de code valide
+      </div>
+      <div class="form-actions">
+        <button (click)="onSubmitPot()" [disabled]="!newPotCode || !isValidPotCode()">
+          Ajouter
+        </button>
+        <button class="cancel-button" (click)="onCancelAddPot()">
+          Annuler
+        </button>
+      </div>
+    </div>
   </div>
 
   <app-footer></app-footer>
