@@ -4,25 +4,12 @@
   flex-direction: column;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-  
-  &-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-}
-
 .content-wrapper {
   display: grid;
   grid-template-columns: 250px 1fr 300px;
   flex: 1;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .sidebar {
@@ -124,13 +111,20 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 8px solid #eee;
-    border-top-color: #4CAF50;
+    border: 8px solid #4CAF50;
+    border-right-color: #eee;
+    border-bottom-color: #eee;
+    border-left-color: #eee;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    transform: rotate(-45deg);
+
+    span {
+      transform: rotate(45deg);
+    }
   }
 
   .temperature {

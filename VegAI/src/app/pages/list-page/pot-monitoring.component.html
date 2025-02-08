@@ -1,19 +1,5 @@
 <div class="monitoring-container">
-  <!-- Header -->
-  <header class="header">
-    <div class="header-left">
-      <img src="assets/icons/plant-icon.svg" alt="Plant icon" class="logo-icon">
-      <h1 class="brand">VegAI</h1>
-    </div>
-    <div class="header-right">
-      <button class="icon-button">
-        <i class="fas fa-cog"></i>
-      </button>
-      <button class="icon-button">
-        <i class="fas fa-sign-out-alt"></i>
-      </button>
-    </div>
-  </header>
+  <app-header></app-header>
 
   <div class="content-wrapper">
     <!-- Sidebar -->
@@ -69,7 +55,7 @@
         <div class="env-item">
           <h3>Humidité</h3>
           <div class="circular-progress">
-            {{ environmentalData.humidity }}%
+            <span>{{ environmentalData.humidity }}%</span>
           </div>
         </div>
 
@@ -95,4 +81,6 @@
       </div>
     </aside>
   </div>
+
+  <app-footer></app-footer>
 </div>

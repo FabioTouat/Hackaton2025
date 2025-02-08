@@ -1,19 +1,5 @@
 <div class="dashboard-container">
-  <!-- Header -->
-  <header class="header">
-    <div class="header-left">
-      <img src="assets/icons/plant-icon.svg" alt="Plant icon" class="logo-icon">
-      <h1 class="brand">VegAI</h1>
-    </div>
-    <div class="header-right">
-      <button class="icon-button">
-        <i class="fas fa-cog"></i>
-      </button>
-      <button class="icon-button">
-        <i class="fas fa-sign-out-alt"></i>
-      </button>
-    </div>
-  </header>
+  <app-header></app-header>
 
   <!-- Welcome Section -->
   <section class="welcome-section">
@@ -23,32 +9,18 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <div class="card">
-      <h3>Mes pots</h3>
-      <div class="pot-icon">
-        <i class="fas fa-seedling"></i>
-      </div>
-      <button class="pot-button" (click)="goToPotMonitoring()">
-        Mes Pots
-      </button>
-    </div>
+    <app-dashboard-card 
+      title="Mes pots" 
+      iconClass="fas fa-seedling"
+      (cardClick)="goToPotMonitoring()">
+    </app-dashboard-card>
     
-    <div class="card">
-      <h3>Mon Profil</h3>
-      <div class="profile-icon">
-        <i class="fas fa-user"></i>
-      </div>
-    </div>
+    <app-dashboard-card 
+      title="Mon Profil" 
+      iconClass="fas fa-user"
+      (cardClick)="goToProfile()">
+    </app-dashboard-card>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-left">
-      <span>© VegAI</span>
-      <button class="text-button">À propos</button>
-    </div>
-    <div class="footer-right">
-      <span>Contact: ...</span>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>

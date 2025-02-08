@@ -1,49 +1,48 @@
 .dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   font-family: 'Arial', sans-serif;
 }
 
-.header {
+.welcome-section {
+  padding: 2rem;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid #eee;
 
-  &-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  h2 {
+    font-size: 2rem;
+    font-weight: normal;
+    margin: 0;
   }
 
-  &-right {
-    display: flex;
-    gap: 1rem;
+  .guide-button {
+    color: black;
+    margin-left: auto;
   }
 }
 
+.main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 3rem;
+  background-color: #fff;
+}
+
 .logo-icon {
-  width: 32px;
   height: 32px;
 }
 
 .brand {
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-.welcome-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 0;
-
-  h2 {
-    font-size: 2rem;
-    font-weight: normal;
-  }
 }
 
 .guide-button {
@@ -58,15 +57,13 @@
   }
 }
 
-.main-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
-}
-
 .card {
-  padding: 2rem;
+  padding: 4rem 3rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background-color: white;
   border: 1px solid #eee;
   border-radius: 8px;
@@ -79,28 +76,15 @@
   }
 
   h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
   }
 
   .pot-icon,
   .profile-icon {
-    font-size: 2rem;
+    font-size: 4rem;
     color: #666;
-  }
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-top: 1px solid #eee;
-  margin-top: 2rem;
-
-  &-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    margin: 2rem 0;
   }
 }
 

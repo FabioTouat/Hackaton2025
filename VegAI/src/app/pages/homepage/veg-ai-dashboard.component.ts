@@ -14,4 +14,9 @@ export class VegAiDashboardComponent {
   goToPotMonitoring() {
     this.router.navigate(['/pot-monitoring']);
   }
+
+  goToProfile() {
+    // À implémenter quand la route du profil sera créée
+    console.log('Navigation vers le profil');
+  }
 }
