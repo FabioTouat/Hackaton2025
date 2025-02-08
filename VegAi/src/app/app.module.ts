@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
+import { ConnectionPageComponentComponent } from './pages/connection-page/connection-page-component/connection-page-component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConnectionPageComponentComponent
   ],
   imports: [
     BrowserModule,
