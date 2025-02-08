@@ -7,14 +7,13 @@ import { ConnectionPageComponentComponent } from './pages/connection-page/connec
 
 @NgModule({
   declarations: [
-  
+    
     ConnectionPageComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
-  bootstrap: []
+  providers: []
 })
 export class AppModule { }
