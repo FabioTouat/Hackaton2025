@@ -1,0 +1,50 @@
+<div class="page-container">
+  <app-header [showButtons]="true" [showBackButton]="true" (onBackClick)="onBack()"></app-header>
+
+  <div class="content">
+    <div class="plant-card">
+      <div class="info-container">
+        <h1 class="plant-title">{{ plantInfo.name }}</h1>
+        <div class="plant-details">
+          <div class="detail-item">
+            <span class="label">Variété:</span>
+            <span class="value">{{ plantInfo.variety }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Date de plantation:</span>
+            <span class="value">{{ plantInfo.plantingDate }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Date de récolte estimée:</span>
+            <span class="value">{{ plantInfo.harvestDate }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Durée exposition lumineuse:</span>
+            <span class="value">{{ plantInfo.lightExposure }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Temperature idéal:</span>
+            <span class="value">{{ plantInfo.idealTemperature }}°C</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Humidité de la terre:</span>
+            <span class="value">{{ plantInfo.soilHumidity }}%</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Nombre de plants:</span>
+            <span class="value">{{ plantInfo.plantCount }}</span>
+          </div>
+        </div>
+        <button class="harvest-button" (click)="startHarvest()">
+          Démarrer la récolte
+        </button>
+      </div>
+      <div class="image-container">
+        <img [src]="plantInfo.image" [alt]="plantInfo.name">
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+

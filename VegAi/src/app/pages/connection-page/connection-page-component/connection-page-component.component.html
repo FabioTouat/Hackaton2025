@@ -1,10 +1,52 @@
-<div class="connection-page">
-  <h1>Connection Page</h1>
-  <div class="connection-content">
-    <!-- Add your connection page content here -->
-    <p>Welcome to the connection page!</p>
+<div class="page-container">
+  <app-header [showButtons]="false"></app-header>
+  
+  <div class="login-container">
+    <div class="image-container">
+    </div>
+    
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="user.email" 
+          required 
+          #email="ngModel">
+        <span class="error-message" 
+          *ngIf="email.invalid && (email.dirty || email.touched)">
+          Ce champ est requis
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="user.password" 
+          required 
+          #password="ngModel">
+        <span class="error-message" 
+          *ngIf="password.invalid && (password.dirty || password.touched)">
+          Ce champ est requis
+        </span>
+      </div>
+
+      <button 
+        type="submit" 
+        class="login-button" 
+        [disabled]="loginForm.form.invalid">
+        Connexion
+      </button>
+
+      <a href="#" class="forgot-password">Mot de passe oublié</a>
+    </form>
   </div>
-  <button class="redirect-button" (click)="redirectToDashboard()">
-    Accéder au Dashboard
-  </button>
+
+  <app-footer></app-footer>
 </div>
+

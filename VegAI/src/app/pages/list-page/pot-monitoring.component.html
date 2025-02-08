@@ -28,15 +28,65 @@
         <div class="plants-section">
           <div class="section-header">
             <h3>Mes plantes</h3>
-            <button class="add-button">
+            <button class="add-button" (click)="onAddPlantClick()">
               <i class="fas fa-plus"></i> plante
             </button>
           </div>
           
+          <!-- Formulaire d'ajout de plante -->
+          <div class="add-plant-form" *ngIf="showAddPlantForm">
+            <form (ngSubmit)="onSubmitPlant()" #plantForm="ngForm">
+              <div class="form-group">
+                <label for="plantName">Plante</label>
+                <select 
+                  id="plantName"
+                  [(ngModel)]="newPlant.name"
+                  name="plantName"
+                  (ngModelChange)="onPlantSelect()"
+                  required>
+                  <option value="">Sélectionner une plante</option>
+                  <option *ngFor="let plant of availablePlants" [value]="plant.name">
+                    {{ plant.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="plantQuantity">Nombre de plants</label>
+                <input 
+                  type="number" 
+                  id="plantQuantity"
+                  [(ngModel)]="newPlant.quantity"
+                  name="plantQuantity"
+                  min="1"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="plantType">Type de plante</label>
+                <input 
+                  type="text" 
+                  id="plantType"
+                  [value]="newPlant.type"
+                  name="plantType"
+                  disabled>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="submit-button" [disabled]="!plantForm.form.valid">
+                  Ajouter
+                </button>
+                <button type="button" class="cancel-button" (click)="onCancelAdd()">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
+
           <div class="plant-list">
             <div *ngFor="let plant of plants" class="plant-item">
               <span>{{ plant.name }}</span>
-              <button class="info-button">
+              <button class="info-button" (click)="onPlantInfo(plant)">
                 <i class="fas fa-info-circle"></i>
               </button>
             </div>
@@ -55,7 +105,11 @@
         <div class="env-item">
           <h3>Humidité</h3>
           <div class="circular-progress">
-            <span>{{ environmentalData.humidity }}%</span>
+            <div class="progress-circle" [style.--progress]="environmentalData.humidity">
+              <div class="inner-circle">
+                <span>{{ environmentalData.humidity }}%</span>
+              </div>
+            </div>
           </div>
         </div>
 

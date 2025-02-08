@@ -20,14 +20,18 @@
       align-items: center;
       
       .logo-icon {
-        height: 40px;
-        margin-right: -5px;
+        height: 30px;
+        transform: translateY(-2px) translateX(3px);
       }
 
       .brand {
         font-size: 1.5rem;
         font-weight: bold;
-        color: #4CAF50;
+        margin-left: 2px;
+      }
+
+      &.clickable {
+        cursor: pointer;
       }
     }
   }
