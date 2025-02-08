@@ -1,69 +1,27 @@
-# Welcome to your Lovable project
+# VegAi
 
-## Project info
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.
 
-**URL**: https://lovable.dev/projects/c7c3f0e8-3f14-43c9-8867-bb2df55ddadf
+## Development server
 
-## How can I edit this code?
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-There are several ways of editing your application.
+## Code scaffolding
 
-**Use Lovable**
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c7c3f0e8-3f14-43c9-8867-bb2df55ddadf) and start prompting.
+## Build
 
-Changes made via Lovable will be committed automatically to this repo.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-**Use your preferred IDE**
+## Running unit tests
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Running end-to-end tests
 
-Follow these steps:
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Further help
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/c7c3f0e8-3f14-43c9-8867-bb2df55ddadf) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
