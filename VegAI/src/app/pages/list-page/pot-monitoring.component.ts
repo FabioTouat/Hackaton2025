@@ -29,8 +29,8 @@ export class PotMonitoringComponent {
   selectedPot = 'Pot 2';
   
   plants: Plant[] = [
-    { name: 'Concombre', type: 'Légume', quantity: 1 },
-    { name: 'Piment', type: 'Épice', quantity: 1 }
+    { name: 'Concombre', type: 'Légume', quantity: 1, id: '1' },
+    { name: 'Piment', type: 'Épice', quantity: 1, id: '2' }
   ];
 
   environmentalData = {
@@ -103,6 +103,13 @@ export class PotMonitoringComponent {
     const selectedPlant = this.availablePlants.find(p => p.name === this.newPlant.name);
     if (selectedPlant) {
       this.newPlant.type = selectedPlant.type;
+    }
+  }
+
+  onDeletePlant(plantToDelete: Plant) {
+    if (plantToDelete.id) {
+      this.plants = this.plants.filter(plant => plant.id !== plantToDelete.id);
+      console.log('Plante supprimée:', plantToDelete.name);
     }
   }
 }

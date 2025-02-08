@@ -86,6 +86,39 @@
       padding: 0.5rem;
       border-bottom: 1px solid #eee;
 
+      .plant-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .info-button, .delete-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+
+      .info-button {
+        color: #666;
+        &:hover {
+          color: #333;
+        }
+      }
+
+      .delete-button {
+        color: #dc3545;
+        &:hover {
+          color: #c82333;
+          background-color: #ffebee;
+        }
+      }
+
       span {
         display: flex;
         gap: 0.5rem;
