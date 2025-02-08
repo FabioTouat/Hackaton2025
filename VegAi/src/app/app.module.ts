@@ -10,16 +10,16 @@ import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    VegAiDashboardComponent,
-    DashboardCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ConnectionPageComponentComponent,
     HeaderComponent,
-    PotMonitoringComponent
+    PotMonitoringComponent,
+    VegAiDashboardComponent,
+    DashboardCardComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
