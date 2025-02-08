@@ -8,7 +8,7 @@ import { PotMonitoringComponent } from './pages/list-page/pot-monitoring.compone
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { Routes } from '@angular/router';
-import { DirtAnalyzeComponent } from './pages/dirt-analyse/dirt-analyze.component';
+import { DirtAnalyzeComponent } from './pages/dirt-analyze/dirt-analyze.component';
 
 
 @NgModule({
@@ -29,8 +29,3 @@ import { DirtAnalyzeComponent } from './pages/dirt-analyse/dirt-analyze.componen
 })
 export class AppModule { }
 
-const routes: Routes = [
-  // ... existing routes ...
-  { path: 'dirt-analyze', component: DirtAnalyzeComponent },
-  // ... existing routes ...
-];
