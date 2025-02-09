@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface PlantInfo {
   name: string
@@ -42,9 +43,13 @@ export class PlantCardComponent implements OnInit {
   // Stocker la différence initiale en jours
   private initialDiffDays: number | null = null;
 
+  // Nouvelle propriété pour stocker le conseil de plantation
+  plantingAdvice: string = '';
+
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -57,7 +62,6 @@ export class PlantCardComponent implements OnInit {
       this.plantInfo.name = this.plantName;  // Met à jour le nom de la plante
       this.plantInfo.plantCount = Number(params['plantQuantity']) || 1;  // Récupération de la quantité
       this.plantInfo.image = params['imageUrl'] || '';
-
 
       if (this.plantId) {
         this.loadPlantDetails(this.plantId);
@@ -89,6 +93,40 @@ export class PlantCardComponent implements OnInit {
 
     // Mettre à jour la date de maturation
     this.plantInfo.harvestDate = newHarvestDate.toISOString().split('T')[0];
+  }
+
+  // Méthode mise à jour pour récupérer les conseils de plantation en s'inspirant de dirt-analyze.component.ts
+  async generatePlantingAdvice(): Promise<void> {
+    const payload = {
+      plant: this.plantInfo.name,
+      condition: "donne-moi les moyens pour planter la plante de manière efficace"
+    };
+
+    try {
+      // Récupération du token d'authentification (ici la clé 'token', à adapter si besoin)
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.plantingAdvice = "Vous devez être connecté pour obtenir des conseils.";
+        return;
+      }
+
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      const response = await this.http.post<{ advice: string }>(
+        'http://localhost:5000/api/ai/generate-advice',
+        payload,
+        { headers }
+      ).toPromise();
+
+      if (!response) {
+        throw new Error("Aucune réponse du service d'IA.");
+      }
+
+      this.plantingAdvice = response.advice.trim();
+    } catch (error) {
+      console.error("Erreur lors de la récupération des conseils de plantation:", error);
+      this.plantingAdvice = "Désolé, je n'ai pas pu obtenir de conseils. Veuillez réessayer.";
+    }
   }
 }
 

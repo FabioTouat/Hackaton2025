@@ -35,6 +35,14 @@
             <span class="value">{{ plantInfo.plantCount }}</span>
           </div>
         </div>
+        <!-- Section pour les conseils IA intégrée dans la fiche de la plante -->
+        <div class="advice-container">
+          <button (click)="generatePlantingAdvice()">Obtenir les conseils d'IA</button>
+          <div class="ai-advice-section" *ngIf="plantingAdvice">
+            <h2>Conseils de l'IA</h2>
+            <p>{{ plantingAdvice }}</p>
+          </div>
+        </div>
       </div>
       <div class="image-container">
         <img [src]="plantInfo.image" [alt]="plantInfo.name">

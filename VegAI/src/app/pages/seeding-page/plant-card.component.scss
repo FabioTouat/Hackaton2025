@@ -126,3 +126,41 @@
   }
 }
 
+.advice-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.advice-container button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.advice-container button:hover {
+  background-color: #45a049;
+}
+
+.ai-advice-section {
+  margin-top: 10px;
+  border: 2px solid #4CAF50;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ai-advice-section h2 {
+  margin: 0 0 10px 0;
+  color: #4CAF50;
+}
+
+.ai-advice-section p {
+  margin: 0;
+}
+
