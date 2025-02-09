@@ -179,5 +179,7 @@ export class PotMonitoringComponent {
   onCancelAddPot() {
     this.showAddPotForm = false;
     this.newPotCode = '';
+  onAnalyzeClick() {
+    this.router.navigate(['/dirt-analyze']);
   }
 }

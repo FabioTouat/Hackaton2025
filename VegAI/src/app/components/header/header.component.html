@@ -11,9 +11,9 @@
     </div>
   </div>
   <div class="header-right" *ngIf="showButtons">
-    <button class="icon-button" (click)="onSettings()">
+    <a routerLink="/settings" class="settings-icon">
       <i class="fas fa-cog"></i>
-    </button>
+    </a>
     <button class="icon-button" (click)="onLogout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>

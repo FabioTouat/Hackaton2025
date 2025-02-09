@@ -1,52 +1,46 @@
-<div class="page-container">
-  <app-header [showButtons]="false"></app-header>
-  
-  <div class="login-container">
-    <div class="image-container">
+<div class="connection-container">
+  <div class="connection-box">
+    <div class="logo">
+      <img src="assets/Vlogo.png" alt="Logo VegAI">
     </div>
+    <h2>Connexion</h2>
     
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
         <input 
           type="email" 
           id="email" 
-          name="email" 
-          [(ngModel)]="user.email" 
-          required 
-          #email="ngModel">
-        <span class="error-message" 
-          *ngIf="email.invalid && (email.dirty || email.touched)">
-          Ce champ est requis
-        </span>
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          email>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Mot de passe</label>
         <input 
           type="password" 
           id="password" 
-          name="password" 
-          [(ngModel)]="user.password" 
-          required 
-          #password="ngModel">
-        <span class="error-message" 
-          *ngIf="password.invalid && (password.dirty || password.touched)">
-          Ce champ est requis
-        </span>
+          name="password"
+          [(ngModel)]="user.password"
+          required>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
       </div>
 
       <button 
         type="submit" 
-        class="login-button" 
-        [disabled]="loginForm.form.invalid">
-        Connexion
+        [disabled]="!loginForm.form.valid">
+        Se connecter
       </button>
 
-      <a href="#" class="forgot-password">Mot de passe oublié</a>
+      <div class="register-link">
+        Pas encore de compte ? <a routerLink="/register">Créer un compte</a>
+      </div>
     </form>
   </div>
-
-  <app-footer></app-footer>
 </div>
 

@@ -1,0 +1,117 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dirt-analyze-container {
+  padding: 20px;
+  flex: 1;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.measurements-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.measurement-column {
+  width: 100%;
+}
+
+.measurement-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  margin: 15px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.measurement-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  width: 150px;
+}
+
+.value-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.value-box {
+  font-size: 2rem;
+  color: #333;
+  padding: 10px;
+  background-color: #4CAF50;
+  border-radius: 4px;
+  color: white;
+  min-width: 120px;
+}
+
+.unit {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.info-button {
+  font-size: 1.2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.info-icon {
+  color: #666;
+  cursor: pointer;
+  font-size: 20px;
+  
+  &:hover {
+    color: #333;
+  }
+}
+
+.status-indicators {
+  margin: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.status-box {
+  padding: 15px;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+}
+
+.status-box.rouge {
+  background-color: #f44336;
+}
+
+.status-box.jaune {
+  background-color: #ffc107;
+}
+
+.status-box.vert {
+  background-color: #4CAF50;
+}
+
+.status-label {
+  font-size: 1.2rem;
+}
+
+app-footer {
+  margin-top: auto;
+}
