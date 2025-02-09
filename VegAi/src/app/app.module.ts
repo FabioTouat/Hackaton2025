@@ -10,6 +10,9 @@ import { VegAiDashboardComponent } from './pages/homepage/veg-ai-dashboard.compo
 import { PotMonitoringComponent } from './pages/list-page/pot-monitoring.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './pages/register-page/register.component';
+import { ThemeService } from './services/theme.service';
 import { Routes } from '@angular/router';
 import { DirtAnalyzeComponent } from './pages/dirt-analyze/dirt-analyze.component';
 
@@ -27,13 +30,22 @@ import { DirtAnalyzeComponent } from './pages/dirt-analyze/dirt-analyze.componen
     ConnectionPageComponentComponent,
     HeaderComponent,
     PotMonitoringComponent,
-
+    DirtAnalyzeComponent,
     VegAiDashboardComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    HttpClientModule,
+    RegisterComponent
 
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
-
+export class AppModule {
+  constructor(private themeService: ThemeService) {
+    // Initialiser le thème au démarrage de l'application
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.themeService.setDarkTheme(true);
+    }
+  }
+}

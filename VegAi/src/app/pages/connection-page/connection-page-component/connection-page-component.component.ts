@@ -1,21 +1,16 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-connection-page-component',
   templateUrl: './connection-page-component.component.html',
   styleUrls: ['./connection-page-component.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule, 
-    FormsModule,
-    HeaderComponent,
-    FooterComponent
-  ]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class ConnectionPageComponentComponent {
   user = {
@@ -23,15 +18,24 @@ export class ConnectionPageComponentComponent {
     password: ''
   };
 
-  constructor(private router: Router) {}
+  error = '';
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      console.log('Email:', this.user.email);
-      console.log('Password:', this.user.password);
-      
-      // Pour l'instant, on redirige directement vers le dashboard
-      this.router.navigate(['/dashboard']);
-    }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  onSubmit() {
+    this.http.post('http://localhost:5000/api/auth/login', this.user)
+      .subscribe({
+        next: (response: any) => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('username', response.username);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.error = error.error.message || 'Email ou mot de passe incorrect';
+        }
+      });
   }
 }
