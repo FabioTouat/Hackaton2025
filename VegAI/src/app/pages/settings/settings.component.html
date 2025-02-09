@@ -1,0 +1,69 @@
+<div class="settings-container">
+  <app-header></app-header>
+
+  <div class="settings-content">
+    <div class="settings-card">
+      <h2>Paramètres</h2>
+
+      <!-- Thème -->
+      <section class="settings-section">
+        <h3>Apparence</h3>
+        <div class="theme-toggle">
+          <label>
+            Thème sombre
+            <input 
+              type="checkbox" 
+              [checked]="isDarkMode"
+              (change)="toggleTheme()">
+          </label>
+        </div>
+      </section>
+
+      <!-- Changement de mot de passe -->
+      <section class="settings-section">
+        <h3>Changer le mot de passe</h3>
+        <form (ngSubmit)="changePassword()" #passwordForm="ngForm">
+          <div class="form-group">
+            <label for="currentPassword">Mot de passe actuel</label>
+            <input 
+              type="password" 
+              id="currentPassword"
+              name="currentPassword"
+              [(ngModel)]="passwordData.currentPassword"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input 
+              type="password" 
+              id="newPassword"
+              name="newPassword"
+              [(ngModel)]="passwordData.newPassword"
+              required
+              minlength="6">
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+            <input 
+              type="password" 
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="passwordData.confirmPassword"
+              required>
+          </div>
+
+          <button type="submit" [disabled]="!passwordForm.form.valid">
+            Changer le mot de passe
+          </button>
+        </form>
+      </section>
+
+      <div class="message success" *ngIf="success">{{ success }}</div>
+      <div class="message error" *ngIf="error">{{ error }}</div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div> 

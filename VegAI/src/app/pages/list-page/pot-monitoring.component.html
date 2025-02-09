@@ -1,0 +1,240 @@
+<div class="monitoring-container">
+  <app-header></app-header>
+
+  <div class="content-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fas fa-seedling"></i>
+        <h2>Mes pots</h2>
+      </div>
+      <nav class="pot-list">
+        <a *ngFor="let pot of pots" 
+           [class.active]="pot.name === selectedPot"
+           (click)="onPotSelect(pot.name)"
+           href="javascript:void(0);">
+          {{ pot.name }}
+        </a>
+        <a href="javascript:void(0)" class="add-pot" (click)="onAddPotClick()">
+          <i class="fas fa-plus"></i> Ajouter un pot
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="pot-details">
+        
+        <!-- Nouvelle section d'informations du pot -->
+        <div class="pot-info">
+          <div class="pot-header">
+            <i class="fas fa-cube"></i>
+            <h3>{{ selectedPot }}</h3>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <i class="fas fa-tint"></i>
+              <span>Arrosage automatique: 
+                <span [class.enabled]="currentPot?.autoWatering">
+                  {{ currentPot?.autoWatering ? 'Activé' : 'Désactivé' }}
+                </span>
+              </span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-ruler-combined"></i>
+              <span>Taille: {{ currentPot?.size?.width }} x {{ currentPot?.size?.height }} cm</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <i class="fas fa-microchip"></i>
+              <span>Spectroscopie infrarouge: 
+                <span [class.operational]="currentPot?.sensors?.infrared === 'Opérationnel'">
+                  {{ currentPot?.sensors?.infrared }}
+                </span>
+              </span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-microchip"></i>
+              <span>Capteur NPR: 
+                <span [class.operational]="currentPot?.sensors?.npr === 'Opérationnel'">
+                  {{ currentPot?.sensors?.npr }}
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="plants-section">
+          <div class="section-header">
+            <h3>Mes plantes</h3>
+            <button class="add-button" (click)="onAddPlantClick()">
+              <i class="fas fa-plus"></i> plante
+            </button>
+          </div>
+          
+          <!-- Formulaire d'ajout de plante -->
+          <div class="add-plant-form" *ngIf="showAddPlantForm">
+            <form (ngSubmit)="onSubmitPlant()" #plantForm="ngForm">
+              <div class="form-group">
+                <label for="plantName">Plante</label>
+                <select 
+                  id="plantName"
+                  [(ngModel)]="newPlant.name"
+                  name="plantName"
+                  (ngModelChange)="onPlantSelect()"
+                  required>
+                  <option value="">Sélectionner une plante</option>
+                  <option *ngFor="let plant of availablePlants" [value]="plant.name">
+                    {{ plant.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="plantQuantity">Nombre de plants</label>
+                <input 
+                  type="number" 
+                  id="plantQuantity"
+                  [(ngModel)]="newPlant.quantity"
+                  name="plantQuantity"
+                  min="1"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="plantType">Variété de la plante</label>
+                <input 
+                  type="text" 
+                  id="plantType"
+                  [value]="newPlant.variety"
+                  name="plantType"
+                  disabled>
+              </div>
+
+              <div class="form-group">
+                <label for="plantingDate">Date de plantation</label>
+                <input 
+                  type="date"
+                  id="plantingDate"
+                  [(ngModel)]="newPlant.plantingDate"
+                  name="plantingDate"
+                  [max]="today"
+                  required>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="submit-button" [disabled]="!plantForm.form.valid">
+                  Ajouter
+                </button>
+                <button type="button" class="cancel-button" (click)="onCancelAdd()">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="plant-list">
+            <div *ngFor="let plant of currentPotPlants" class="plant-item">
+              <span>{{ getPlantDisplayName(plant) }}</span>
+              <div class="plant-actions">
+                <button class="info-button" (click)="onPlantInfo(plant)">
+                  <i class="fas fa-info-circle"></i>
+
+                </button>
+                <button class="delete-button" (click)="onDeletePlant(plant)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="add-button analysis-button" (click)="onAnalyzeClick()">
+          <i class="fas fa-microscope"></i> Analyser la terre
+        </button>
+      </section>
+    </main>
+
+    <!-- Environmental Data Sidebar -->
+    <aside class="env-sidebar">
+      <div class="env-data">
+        <div class="progress-container">
+          <div class="env-item">
+            <h3>Humidité</h3>
+            <div class="circular-progress">
+              <div class="progress-circle" [style.--progress]="environmentalData.humidity">
+                <div class="inner-circle">
+                  <span>{{ environmentalData.humidity }}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+
+        <div class="env-item">
+          <h3>Température</h3>
+          <div class="temperature">
+            {{ environmentalData.temperature }}°C
+          </div>
+        </div>
+
+        <div class="env-item">
+          <h3>Luminosité</h3>
+          <div class="data-row">
+            <i class="fas fa-sun"></i>
+            <span>{{ environmentalData.lightIntensity }} lux</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-clock"></i>
+            <span>{{ environmentalData.lightHour }}h/jour</span>
+          </div>
+        </div>
+
+        <div class="env-item">
+          <h3>État de la plante</h3>
+          <div class="data-row">
+            <i class="fas fa-ruler-vertical"></i>
+            <span>Hauteur: {{ environmentalData.plantHeight }}cm</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-heart"></i>
+            <span>Santé: {{ environmentalData.healthLevel }}</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-bug"></i>
+            <span>Parasites: {{ environmentalData.pestPresence }}</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Ajouter après la nav -->
+  <div class="add-pot-modal" *ngIf="showAddPotForm">
+    <div class="add-pot-content">
+      <h3>Entrer le code de l'appareil</h3>
+      <input 
+        type="text" 
+        [(ngModel)]="newPotCode"
+        [class.invalid]="newPotCode && !isValidPotCode()"
+        placeholder="XXXX-XXXX-XXXX-XXXX"
+        pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}">
+      <div class="error-message" *ngIf="newPotCode && !isValidPotCode()">
+        Entrez un format de code valide
+      </div>
+      <div class="form-actions">
+        <button (click)="onSubmitPot()" [disabled]="!newPotCode || !isValidPotCode()">
+          Ajouter
+        </button>
+        <button class="cancel-button" (click)="onCancelAddPot()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

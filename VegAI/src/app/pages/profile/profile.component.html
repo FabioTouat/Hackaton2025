@@ -1,0 +1,54 @@
+<div class="profile-container">
+  <app-header></app-header>
+
+  <div class="profile-content">
+    <div class="profile-card">
+      <h2>Mon Profil</h2>
+      
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div class="profile-info" *ngIf="!error">
+        <div class="info-group">
+          <label>Nom d'utilisateur</label>
+          <p>{{ userProfile.username || 'Chargement...' }}</p>
+        </div>
+
+        <div class="info-group">
+          <label>Adresse e-mail</label>
+          <p>{{ userProfile.email || 'Chargement...' }}</p>
+        </div>
+
+        <div class="stats-container">
+          <h3>Mes statistiques</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <i class="fas fa-seedling"></i>
+              <div class="stat-content">
+                <span class="stat-value">{{ userProfile.stats.plantsHarvested }}</span>
+                <span class="stat-label">Plantes récoltées</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-cloud"></i>
+              <div class="stat-content">
+                <span class="stat-value">{{ userProfile.stats.co2Saved }}kg</span>
+                <span class="stat-label">CO2 économisé</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-dollar-sign"></i>
+              <div class="stat-content">
+                <span class="stat-value">{{ userProfile.stats.moneySaved }}$</span>
+                <span class="stat-label">Économies réalisées</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div> 

@@ -1,0 +1,50 @@
+<app-header></app-header>
+<div class="dirt-analyze-container">
+  <div class="measurements-grid">
+    <!-- Left Column -->
+    <div class="measurement-column">
+      <div *ngFor="let measurement of leftColumn" class="measurement-box">
+        <div class="measurement-label">{{ measurement.label }}</div>
+        <div class="value-container">
+          <div class="value-box" [style.background-color]="getValueColor(measurement)">
+            {{ measurement.value }}
+            <span *ngIf="measurement.unit" class="unit">{{ measurement.unit }}</span>
+            <span *ngIf="measurement.type === 'ph'" class="ph-label">
+              {{ getPhLabel(measurement.value) }}
+            </span>
+          </div>
+          <button class="info-button" [attr.data-tooltip]="measurement.tooltip">
+            <i class="fas fa-info-circle info-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="chat-container">
+    <div class="chat-messages" #chatMessages>
+      <div *ngFor="let message of messages" 
+           class="message" 
+           [ngClass]="{'user-message': message.isUser, 'ai-message': !message.isUser}">
+        {{ message.text }}
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" 
+             [(ngModel)]="currentMessage" 
+             (keyup.enter)="sendMessage()"
+             placeholder="Posez une question sur vos analyses...">
+      <button (click)="sendMessage()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+  </div>
+
+  <!-- Ajout du chat -->
+</div>
+
+<div class="status-indicators">
+  <div *ngFor="let status of statusIndicators" class="status-box" [ngClass]="status.color">
+    <span class="status-label">{{ status.label }}</span>
+  </div>
+</div>
+<app-footer></app-footer>

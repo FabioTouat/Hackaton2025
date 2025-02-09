@@ -1,0 +1,62 @@
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-left: -1rem;
+      
+      .logo-icon {
+        height: 50px;
+        transform: translateY(-6px) translateX(38px);
+      }
+
+      .brand {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-left: 2px;
+        color: var(--text-color);
+      }
+
+      &.clickable {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .settings-icon, .icon-button {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-hover);
+      }
+    }
+  }
+} 

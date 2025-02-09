@@ -1,0 +1,35 @@
+.footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--footer-bg);
+  box-shadow: 0 -2px 4px var(--shadow);
+  z-index: 1000;
+  color: var(--text-color);
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .text-button {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 0.5rem;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .footer-right {
+    color: #666;
+  }
+} 
