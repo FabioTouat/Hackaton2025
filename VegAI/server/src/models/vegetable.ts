@@ -2,12 +2,17 @@ import mongoose from 'mongoose';
 if (mongoose.models.Vegetable) {
   delete mongoose.models.Vegetable;
 }
-// Vérifier si le modèle existe déjà
-const Vegetable = mongoose.models.Vegetable || mongoose.model('Vegetable', new mongoose.Schema({
+// Définition du schéma Vegetable
+const VegetableSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true
+  },
+  // Champ pour stocker le lien de l'image situé dans le dossier assets
+  imageUrl: {
+    type: String,
+    required: false
   },
   varieties: [{
     name: {
@@ -19,7 +24,9 @@ const Vegetable = mongoose.models.Vegetable || mongoose.model('Vegetable', new m
       required: true
     }
   }]
-}));
+});
+
+const Vegetable = mongoose.models.Vegetable || mongoose.model('Vegetable', VegetableSchema);
 
 export const VegetableModel = Vegetable;
 
@@ -28,6 +35,7 @@ export async function populateVegetables() {
     const vegetables = [
       {
         name: "Tomate",
+        imageUrl: "/assets/vegetables/tomate.jpg",
         varieties: [
           { name: "Coeur de Boeuf", maturationDays: 80 },
           { name: "Saint Pierre", maturationDays: 75 },
@@ -38,6 +46,7 @@ export async function populateVegetables() {
       },
       {
         name: "Carotte",
+        imageUrl: "/assets/vegetables/carotte.webp",
         varieties: [
           { name: "Nantaise", maturationDays: 70 },
           { name: "De Colmar", maturationDays: 75 },
@@ -47,6 +56,7 @@ export async function populateVegetables() {
       },
       {
         name: "Courgette",
+        imageUrl: "/assets/vegetables/courgette.webp",
         varieties: [
           { name: "Black Beauty", maturationDays: 70 },
           { name: "Verte des maraîchers", maturationDays: 75 },
@@ -56,6 +66,7 @@ export async function populateVegetables() {
       },
       {
         name: "Poivron",
+        imageUrl: "/assets/vegetables/poivron.jpg",
         varieties: [
           { name: "California Wonder", maturationDays: 70 },
           { name: "Corno di Toro", maturationDays: 75 },
@@ -65,6 +76,7 @@ export async function populateVegetables() {
       },
       {
         name: "Aubergine",
+        imageUrl: "/assets/vegetables/aubergine.jpg",
         varieties: [
           { name: "Black Beauty", maturationDays: 70 },
           { name: "Rosa Bianca", maturationDays: 75 },
@@ -74,6 +86,7 @@ export async function populateVegetables() {
       },
       {
         name: "Haricot",
+        imageUrl: "/assets/vegetables/haricot.jpg",
         varieties: [
           { name: "Contender", maturationDays: 70 },
           { name: "Phénomène", maturationDays: 75 },
@@ -83,6 +96,7 @@ export async function populateVegetables() {
       },
       {
         name: "Laitue",
+        imageUrl: "/assets/vegetables/laitue.webp",
         varieties: [
           { name: "Batavia", maturationDays: 70 },
           { name: "Feuille de Chêne", maturationDays: 75 },
@@ -92,6 +106,7 @@ export async function populateVegetables() {
       },
       {
         name: "Pois",
+        imageUrl: "/assets/vegetables/pois.png",
         varieties: [
           { name: "Petit Provençal", maturationDays: 70 },
           { name: "Douce Provence", maturationDays: 75 },
@@ -101,6 +116,7 @@ export async function populateVegetables() {
       },
       {
         name: "Radis",
+        imageUrl: "/assets/vegetables/radis.webp",
         varieties: [
           { name: "18 Jours", maturationDays: 70 },
           { name: "Flamboyant", maturationDays: 75 },
@@ -110,6 +126,7 @@ export async function populateVegetables() {
       },
       {
         name: "Épinard",
+        imageUrl: "/assets/vegetables/epinard.jpg",
         varieties: [
           { name: "Géant d'Hiver", maturationDays: 70 },
           { name: "Matador", maturationDays: 75 },
@@ -119,6 +136,7 @@ export async function populateVegetables() {
       },
       {
         name: "Betterave",
+        imageUrl: "/assets/vegetables/betterave.jpg",
         varieties: [
           { name: "Detroit", maturationDays: 70 },
           { name: "Chioggia", maturationDays: 75 },
@@ -128,6 +146,7 @@ export async function populateVegetables() {
       },
       {
         name: "Chou",
+        imageUrl: "/assets/vegetables/chou.jpg",
         varieties: [
           { name: "Coeur de Boeuf", maturationDays: 70 },
           { name: "Brunswick", maturationDays: 75 },
@@ -143,7 +162,8 @@ export async function populateVegetables() {
           { name: veg.name },
           { 
             name: veg.name,
-            varieties: veg.varieties
+            varieties: veg.varieties,
+            imageUrl: veg.imageUrl
           },
           { upsert: true }
         );

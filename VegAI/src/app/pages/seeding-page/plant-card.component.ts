@@ -53,7 +53,7 @@ export class PlantCardComponent implements OnInit {
       this.plantInfo.harvestDate = params['harvestDate'] || '';
       this.plantInfo.name = this.plantName;  // Met à jour le nom de la plante
       this.plantInfo.plantCount = Number(params['plantQuantity']) || 1;  // Récupération de la quantité
-      
+      this.plantInfo.image = params['imageUrl'] || '';
 
 
       if (this.plantId) {
@@ -85,8 +85,7 @@ export class PlantCardComponent implements OnInit {
     // Mettre à jour la date de récolte
     this.plantInfo.harvestDate = formattedDate;
 
-    console.log("Récolte démarrée pour:", this.plantInfo.name);
-    console.log("Date de récolte mise à jour:", formattedDate);
+    
   }
 }
 

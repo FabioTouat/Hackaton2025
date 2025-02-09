@@ -42,6 +42,7 @@ interface VegetableVariety {
 interface VegetableData {
   name: string;
   varieties: VegetableVariety[];
+  imageUrl: string;
 }
 
 @Component({
@@ -157,6 +158,8 @@ export class PotMonitoringComponent implements OnInit {
   }
 
   onPlantInfo(plant: Plant) {
+    const selectedVegetable = this.vegetables.find(v => v.name === plant.name);
+    console.log(selectedVegetable?.imageUrl);
     this.router.navigate(['/plant-card'], {
       queryParams: {
         plantId: plant.id || '1',
@@ -164,10 +167,12 @@ export class PotMonitoringComponent implements OnInit {
         plantVariety: plant.variety,
         plantQuantity: plant.quantity,
         plantingDate: plant.plantingDate,
-        harvestDate: plant.harvestDate
+        harvestDate: plant.harvestDate,
+        imageUrl: selectedVegetable?.imageUrl
       }
     });
   }
+
 
 
   onAddPlantClick() {
@@ -193,7 +198,7 @@ export class PotMonitoringComponent implements OnInit {
       this.newPlant = { name: '', variety: '', quantity: 1, plantingDate: new Date().toISOString().split('T')[0] };
       this.showAddPlantForm = false;
 
-      console.log('Plante ajoutée avec succès !');
+      
     } else {
       console.log('Veuillez remplir tous les champs correctement');
     }
@@ -213,7 +218,6 @@ export class PotMonitoringComponent implements OnInit {
     const selectedVegetable = this.vegetables.find(v => v.name === this.newPlant.name);
     if (selectedVegetable) {
       this.availableVarieties = selectedVegetable.varieties;
-      console.log(this.availableVarieties);
       if (this.availableVarieties.length > 0) {
         this.newPlant.variety = this.availableVarieties[0].name;
       }
@@ -264,7 +268,6 @@ export class PotMonitoringComponent implements OnInit {
     
     const date = new Date(plantingDate);
     date.setDate(date.getDate() + maturationDays);
-    console.log(date);
     return date.toISOString().split('T')[0];
   }
   onCancelAddPot() {
