@@ -9,7 +9,4 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class FooterComponent {
-  onAboutClick() {
-    console.log('About clicked');
-  }
 } 

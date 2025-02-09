@@ -53,7 +53,6 @@ export class ProfileComponent implements OnInit {
     this.http.get('http://localhost:5000/api/auth/profile', { headers })
       .subscribe({
         next: (response: any) => {
-          console.log('Réponse du serveur:', response);  // Debug
           this.userProfile = response;
         },
         error: (error) => {

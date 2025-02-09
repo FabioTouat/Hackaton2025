@@ -16,10 +16,6 @@ export class HeaderComponent {
 
   constructor(private router: Router) {}
 
-  onSettings() {
-    console.log('Settings clicked');
-  }
-
   onLogout() {
     this.router.navigate(['/connection']);
   }
