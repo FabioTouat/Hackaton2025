@@ -15,139 +15,166 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VegetableModel = void 0;
 exports.populateVegetables = populateVegetables;
 const mongoose_1 = __importDefault(require("mongoose"));
-const vegetableSchema = new mongoose_1.default.Schema({
+if (mongoose_1.default.models.Vegetable) {
+    delete mongoose_1.default.models.Vegetable;
+}
+// Définition du schéma Vegetable
+const VegetableSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
         required: true,
         unique: true
     },
+    // Champ pour stocker le lien de l'image situé dans le dossier assets
+    imageUrl: {
+        type: String,
+        required: false
+    },
     varieties: [{
-            type: String,
-            required: true
+            name: {
+                type: String,
+                required: true
+            },
+            maturationDays: {
+                type: Number,
+                required: true
+            }
         }]
 });
-// Création du modèle Vegetable dans la collection "vegetables"
-const VegetableModel = mongoose_1.default.model('Vegetable', vegetableSchema);
-exports.VegetableModel = VegetableModel;
+const Vegetable = mongoose_1.default.models.Vegetable || mongoose_1.default.model('Vegetable', VegetableSchema);
+exports.VegetableModel = Vegetable;
 function populateVegetables() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('Population de la base de données avec les légumes...');
         const vegetables = [
             {
                 name: "Tomate",
+                imageUrl: "/assets/vegetables/tomate.jpg",
                 varieties: [
-                    "Coeur de Boeuf",
-                    "Saint Pierre",
-                    "Roma",
-                    "Marmande",
-                    "Noire de Crimée"
+                    { name: "Coeur de Boeuf", maturationDays: 80 },
+                    { name: "Saint Pierre", maturationDays: 75 },
+                    { name: "Roma", maturationDays: 70 },
+                    { name: "Marmande", maturationDays: 65 },
+                    { name: "Noire de Crimée", maturationDays: 85 }
                 ]
             },
             {
                 name: "Carotte",
+                imageUrl: "/assets/vegetables/carotte.webp",
                 varieties: [
-                    "Nantaise",
-                    "De Colmar",
-                    "Touchon",
-                    "Purple Haze"
+                    { name: "Nantaise", maturationDays: 70 },
+                    { name: "De Colmar", maturationDays: 75 },
+                    { name: "Touchon", maturationDays: 70 },
+                    { name: "Purple Haze", maturationDays: 75 }
                 ]
             },
             {
                 name: "Courgette",
+                imageUrl: "/assets/vegetables/courgette.webp",
                 varieties: [
-                    "Black Beauty",
-                    "Verte des maraîchers",
-                    "Gold Rush",
-                    "Ronde de Nice"
+                    { name: "Black Beauty", maturationDays: 70 },
+                    { name: "Verte des maraîchers", maturationDays: 75 },
+                    { name: "Gold Rush", maturationDays: 70 },
+                    { name: "Ronde de Nice", maturationDays: 75 }
                 ]
             },
             {
                 name: "Poivron",
+                imageUrl: "/assets/vegetables/poivron.jpg",
                 varieties: [
-                    "California Wonder",
-                    "Corno di Toro",
-                    "Yolo Wonder",
-                    "Chocolat"
+                    { name: "California Wonder", maturationDays: 70 },
+                    { name: "Corno di Toro", maturationDays: 75 },
+                    { name: "Yolo Wonder", maturationDays: 70 },
+                    { name: "Chocolat", maturationDays: 75 }
                 ]
             },
             {
                 name: "Aubergine",
+                imageUrl: "/assets/vegetables/aubergine.jpg",
                 varieties: [
-                    "Black Beauty",
-                    "Rosa Bianca",
-                    "Longue violette",
-                    "Violette de Florence"
+                    { name: "Black Beauty", maturationDays: 70 },
+                    { name: "Rosa Bianca", maturationDays: 75 },
+                    { name: "Longue violette", maturationDays: 70 },
+                    { name: "Violette de Florence", maturationDays: 75 }
                 ]
             },
             {
                 name: "Haricot",
+                imageUrl: "/assets/vegetables/haricot.jpg",
                 varieties: [
-                    "Contender",
-                    "Phénomène",
-                    "Tendergreen",
-                    "Blue Lake"
+                    { name: "Contender", maturationDays: 70 },
+                    { name: "Phénomène", maturationDays: 75 },
+                    { name: "Tendergreen", maturationDays: 70 },
+                    { name: "Blue Lake", maturationDays: 75 }
                 ]
             },
             {
                 name: "Laitue",
+                imageUrl: "/assets/vegetables/laitue.webp",
                 varieties: [
-                    "Batavia",
-                    "Feuille de Chêne",
-                    "Romaine",
-                    "Iceberg"
+                    { name: "Batavia", maturationDays: 70 },
+                    { name: "Feuille de Chêne", maturationDays: 75 },
+                    { name: "Romaine", maturationDays: 70 },
+                    { name: "Iceberg", maturationDays: 75 }
                 ]
             },
             {
                 name: "Pois",
+                imageUrl: "/assets/vegetables/pois.png",
                 varieties: [
-                    "Petit Provençal",
-                    "Douce Provence",
-                    "Merveille de Kelvedon",
-                    "Sugar Snap"
+                    { name: "Petit Provençal", maturationDays: 70 },
+                    { name: "Douce Provence", maturationDays: 75 },
+                    { name: "Merveille de Kelvedon", maturationDays: 70 },
+                    { name: "Sugar Snap", maturationDays: 75 }
                 ]
             },
             {
                 name: "Radis",
+                imageUrl: "/assets/vegetables/radis.webp",
                 varieties: [
-                    "18 Jours",
-                    "Flamboyant",
-                    "Glaçon",
-                    "Noir Long d'Hiver"
+                    { name: "18 Jours", maturationDays: 70 },
+                    { name: "Flamboyant", maturationDays: 75 },
+                    { name: "Glaçon", maturationDays: 70 },
+                    { name: "Noir Long d'Hiver", maturationDays: 75 }
                 ]
             },
             {
                 name: "Épinard",
+                imageUrl: "/assets/vegetables/epinard.jpg",
                 varieties: [
-                    "Géant d'Hiver",
-                    "Matador",
-                    "Viroflay",
-                    "America"
+                    { name: "Géant d'Hiver", maturationDays: 70 },
+                    { name: "Matador", maturationDays: 75 },
+                    { name: "Viroflay", maturationDays: 70 },
+                    { name: "America", maturationDays: 75 }
                 ]
             },
             {
                 name: "Betterave",
+                imageUrl: "/assets/vegetables/betterave.jpg",
                 varieties: [
-                    "Detroit",
-                    "Chioggia",
-                    "Crapaudine",
-                    "Burpees Golden"
+                    { name: "Detroit", maturationDays: 70 },
+                    { name: "Chioggia", maturationDays: 75 },
+                    { name: "Crapaudine", maturationDays: 70 },
+                    { name: "Burpees Golden", maturationDays: 75 }
                 ]
             },
             {
                 name: "Chou",
+                imageUrl: "/assets/vegetables/chou.jpg",
                 varieties: [
-                    "Coeur de Boeuf",
-                    "Brunswick",
-                    "Pointu de Winnigstadt",
-                    "Rouge de Langendijk"
+                    { name: "Coeur de Boeuf", maturationDays: 70 },
+                    { name: "Brunswick", maturationDays: 75 },
+                    { name: "Pointu de Winnigstadt", maturationDays: 70 },
+                    { name: "Rouge de Langendijk", maturationDays: 75 }
                 ]
             }
         ];
         try {
             for (const veg of vegetables) {
-                yield VegetableModel.findOneAndUpdate({ name: veg.name }, {
+                yield exports.VegetableModel.findOneAndUpdate({ name: veg.name }, {
                     name: veg.name,
-                    varieties: veg.varieties
+                    varieties: veg.varieties,
+                    imageUrl: veg.imageUrl
                 }, { upsert: true });
             }
             console.log('Base de données peuplée avec succès !');

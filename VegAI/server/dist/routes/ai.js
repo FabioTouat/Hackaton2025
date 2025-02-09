@@ -21,18 +21,42 @@ const configuration = new openai_1.Configuration({
 });
 const openai = new openai_1.OpenAIApi(configuration);
 router.post('/generate-advice', auth_1.auth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c;
+    console.log("Received request:", req.body); // Debug
     try {
         const { plant, condition } = req.body;
-        const prompt = `Give me gardening advice for growing ${plant} under these conditions: ${condition}`;
-        const completion = yield openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 200
+        if (!process.env.OPENAI_API_KEY) {
+            console.error("No OpenAI API key found");
+            return res.status(500).json({ message: 'OpenAI API key not configured' });
+        }
+        const messages = [
+            {
+                role: "system",
+                content: "You are a helpful gardening assistant."
+            },
+            {
+                role: "user",
+                content: `Donnez-moi des conseils de jardinage pour cultiver ${plant} dans les conditions suivantes : ${condition}. Réponds uniquement en français et de manière concise.`
+            }
+        ];
+        const completion = yield openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: messages,
+            max_tokens: 500,
+            temperature: 0.7
         });
-        res.json({ advice: completion.data.choices[0].text });
+        if (!((_a = completion.data.choices[0].message) === null || _a === void 0 ? void 0 : _a.content)) {
+            console.error("No response from OpenAI");
+            return res.status(500).json({ message: 'No response from OpenAI' });
+        }
+        res.json({ advice: completion.data.choices[0].message.content });
     }
     catch (error) {
-        res.status(500).json({ message: 'AI service error' });
+        console.error("OpenAI API error:", ((_b = error.response) === null || _b === void 0 ? void 0 : _b.data) || error.message);
+        res.status(500).json({
+            message: 'AI service error',
+            details: ((_c = error.response) === null || _c === void 0 ? void 0 : _c.data) || error.message
+        });
     }
 }));
 exports.default = router;
