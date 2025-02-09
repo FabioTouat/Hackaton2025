@@ -103,13 +103,24 @@
               </div>
 
               <div class="form-group">
-                <label for="plantType">Type de plante</label>
+                <label for="plantType">Variété de la plante</label>
                 <input 
                   type="text" 
                   id="plantType"
-                  [value]="newPlant.type"
+                  [value]="newPlant.variety"
                   name="plantType"
                   disabled>
+              </div>
+
+              <div class="form-group">
+                <label for="plantingDate">Date de plantation</label>
+                <input 
+                  type="date"
+                  id="plantingDate"
+                  [(ngModel)]="newPlant.plantingDate"
+                  name="plantingDate"
+                  [max]="today"
+                  required>
               </div>
 
               <div class="form-actions">
@@ -125,10 +136,11 @@
 
           <div class="plant-list">
             <div *ngFor="let plant of currentPotPlants" class="plant-item">
-              <span>{{ plant.name }}</span>
+              <span>{{ getPlantDisplayName(plant) }}</span>
               <div class="plant-actions">
                 <button class="info-button" (click)="onPlantInfo(plant)">
                   <i class="fas fa-info-circle"></i>
+
                 </button>
                 <button class="delete-button" (click)="onDeletePlant(plant)">
                   <i class="fas fa-trash"></i>
@@ -138,7 +150,9 @@
           </div>
         </div>
 
-        <button (click)="onAnalyzeClick()">Analyser la terre</button>
+        <button class="add-button analysis-button" (click)="onAnalyzeClick()">
+          <i class="fas fa-microscope"></i> Analyser la terre
+        </button>
       </section>
     </main>
 

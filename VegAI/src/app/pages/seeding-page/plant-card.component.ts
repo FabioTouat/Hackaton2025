@@ -27,8 +27,8 @@ export class PlantCardComponent implements OnInit {
   plantInfo: PlantInfo = {
     name: "",  // Sera mis à jour avec le nom de la plante cliquée
     variety: "King of the North",
-    plantingDate: "01/01/2025",
-    harvestDate: "01/05/2025",
+    plantingDate: "2025-01-01",
+    harvestDate: "2025-05-01",
     lightExposure: "16H",
     idealTemperature: 26,
     soilHumidity: 30,
@@ -48,9 +48,12 @@ export class PlantCardComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.plantId = params['plantId'] || '';
       this.plantName = params['plantName'] || '';
+      this.plantInfo.variety = params['plantVariety'] || '';
+      this.plantInfo.plantingDate = params['plantingDate'] || '';
       this.plantInfo.name = this.plantName;  // Met à jour le nom de la plante
       this.plantInfo.plantCount = Number(params['plantQuantity']) || 1;  // Récupération de la quantité
       
+
       if (this.plantId) {
         this.loadPlantDetails(this.plantId);
       }

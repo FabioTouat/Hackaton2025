@@ -7,9 +7,10 @@ import { FormsModule } from '@angular/forms';
 
 interface Plant {
   name: string;
-  type: string;
+  variety: string;
   id?: string;
   quantity: number;
+  plantingDate: string;
 }
 
 interface Pot {
@@ -48,7 +49,7 @@ export class PotMonitoringComponent {
     {
       name: 'Pot 1',
       plants: [
-        { name: 'Concombre', type: 'Légume', quantity: 1, id: '1' }
+        { name: 'Concombre', variety: 'Légume', quantity: 1, id: '1', plantingDate: new Date().toISOString().split('T')[0] }
       ],
       autoWatering: true,
       size: { width: 30, height: 40 },
@@ -60,7 +61,7 @@ export class PotMonitoringComponent {
     {
       name: 'Pot 2',
       plants: [
-        { name: 'Piment', type: 'Épice', quantity: 1, id: '2' }
+        { name: 'Piment', variety: 'Épice', quantity: 1, id: '2', plantingDate: new Date().toISOString().split('T')[0] }
       ],
       autoWatering: false,
       size: { width: 25, height: 35 },
@@ -106,8 +107,9 @@ export class PotMonitoringComponent {
 
   newPlant: Plant = {
     name: '',
-    type: '',
-    quantity: 1
+    variety: '',
+    quantity: 1,
+    plantingDate: new Date().toISOString().split('T')[0]
   };
 
   showQRScanner = false;
@@ -116,6 +118,8 @@ export class PotMonitoringComponent {
 
   readonly POT_CODE_REGEX = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
 
+  today = new Date().toISOString().split('T')[0];  // Format YYYY-MM-DD pour l'attribut max
+
   constructor(private router: Router) {}
 
   onPlantInfo(plant: Plant) {
@@ -123,18 +127,20 @@ export class PotMonitoringComponent {
       queryParams: {
         plantId: plant.id || '1',
         plantName: plant.name,
-        plantType: plant.type,
-        plantQuantity: plant.quantity
+        plantVariety: plant.variety,
+        plantQuantity: plant.quantity,
+        plantingDate: plant.plantingDate
       }
     });
   }
+
 
   onAddPlantClick() {
     this.showAddPlantForm = true;
   }
 
   onSubmitPlant() {
-    if (this.newPlant.name && this.newPlant.type && this.newPlant.quantity > 0) {
+    if (this.newPlant.name && this.newPlant.variety && this.newPlant.quantity > 0) {
       const newPlantWithId: Plant = {
         ...this.newPlant,
         id: Date.now().toString()
@@ -145,7 +151,7 @@ export class PotMonitoringComponent {
         this.pots[potIndex].plants = [...this.pots[potIndex].plants, newPlantWithId];
       }
 
-      this.newPlant = { name: '', type: '', quantity: 1 };
+      this.newPlant = { name: '', variety: '', quantity: 1, plantingDate: new Date().toISOString().split('T')[0] };
       this.showAddPlantForm = false;
 
       console.log('Plante ajoutée avec succès !');
@@ -155,14 +161,19 @@ export class PotMonitoringComponent {
   }
 
   onCancelAdd() {
-    this.newPlant = { name: '', type: '', quantity: 1 };
+    this.newPlant = { 
+      name: '', 
+      variety: '', 
+      quantity: 1,
+      plantingDate: new Date().toISOString().split('T')[0]
+    };
     this.showAddPlantForm = false;
   }
 
   onPlantSelect() {
     const selectedPlant = this.availablePlants.find(p => p.name === this.newPlant.name);
     if (selectedPlant) {
-      this.newPlant.type = selectedPlant.type;
+      this.newPlant.variety = selectedPlant.type;
     }
   }
 
@@ -214,5 +225,9 @@ export class PotMonitoringComponent {
 
   onAnalyzeClick() {
     this.router.navigate(['/dirt-analyze']);
+  }
+
+  getPlantDisplayName(plant: Plant): string {
+    return `${plant.name} x${plant.quantity}`;
   }
 }
