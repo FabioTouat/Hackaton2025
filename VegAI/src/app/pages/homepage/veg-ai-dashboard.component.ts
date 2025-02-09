@@ -11,7 +11,13 @@ import { FooterComponent } from '../../components/footer/footer.component';
   templateUrl: './veg-ai-dashboard.component.html',
   styleUrls: ['./veg-ai-dashboard.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule, DashboardCardComponent, FooterComponent]
+  imports: [
+    CommonModule, 
+    HeaderComponent, 
+    FormsModule,
+    DashboardCardComponent,
+    FooterComponent
+  ]
 })
 
 export class VegAiDashboardComponent {
@@ -25,6 +31,6 @@ export class VegAiDashboardComponent {
 
   goToProfile() {
     // À implémenter quand la route du profil sera créée
-    console.log('Navigation vers le profil');
+   
   }
 }

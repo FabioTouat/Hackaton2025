@@ -1,25 +1,37 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { HeaderComponent } from '../../components/header/header.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
-interface NutritionValue {
-  value: number;
+interface SoilMeasurement {
   label: string;
+  value: number;
+  unit: string;
 }
+
 @Component({
-  selector: 'dirt-analyze-panel',
+  selector: 'app-dirt-analyze',
   templateUrl: './dirt-analyze.component.html',
-  styleUrls: ['./dirt-analyze.component.scss']
+  styleUrls: ['./dirt-analyze.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FooterComponent, HeaderComponent]
 })
 export class DirtAnalyzeComponent {
-  topValues: NutritionValue[] = [
-    { value: 5, label: 'Potassium' },
-    { value: 458, label: 'Phosphate' },
-    { value: 7, label: 'PH' }
+  leftColumn: SoilMeasurement[] = [
+    { label: 'PH', value: 7, unit: '' },
+    { label: 'Phosphate', value: 458, unit: 'ppm' },
+    { label: 'Potassium', value: 52, unit: 'ppm' },
+    { label: 'Calcium', value: 3358, unit: 'ppm' },
+    { label: 'Magnesium', value: 172, unit: 'ppm' }
   ];
 
-  middleLabels: string[] = ['more fruit', 'magnesium', 'calcium'];
+ 
 
-  bottomValues: NutritionValue[] = [
-    { value: 72, label: 'ppm' },
-    { value: 335, label: 'ppm' }
+  statusIndicators = [
+    { label: 'Faible', color: 'rouge' },
+    { label: 'Moyen', color: 'jaune' },
+    { label: 'Bon', color: 'vert' }
   ];
-} 
+}

@@ -1,33 +1,27 @@
-<div class="nutrition-panel">
-  <div class="header">PH</div>
-
-  <!-- Top Row Values -->
-  <div class="value-row">
-    <div *ngFor="let item of topValues" class="value-container">
-      <div class="value-box">
-        {{ item.value }}
+<app-header></app-header>
+<div class="dirt-analyze-container">
+  <div class="measurements-grid">
+    <!-- Left Column -->
+    <div class="measurement-column">
+      <div *ngFor="let measurement of leftColumn" class="measurement-box">
+        <div class="measurement-label">{{ measurement.label }}</div>
+        <div class="value-container">
+          <div class="value-box">
+            {{ measurement.value }}
+            <span *ngIf="measurement.unit" class="unit">{{ measurement.unit }}</span>
+          </div>
+          <button class="info-button" >
+            <i class="fas fa-info-circle info-icon" ></i>
+          </button>
+        </div>
       </div>
-      <div class="indicator-dot"></div>
     </div>
-  </div>
-
-  <!-- Middle Labels -->
-  <div class="label-row">
-    <span *ngFor="let label of middleLabels">{{ label }}</span>
-  </div>
-
-  <!-- Bottom Row Values -->
-  <div class="value-row">
-    <div *ngFor="let item of bottomValues" class="value-container">
-      <div class="value-box">
-        {{ item.value }}
-      </div>
-      <div class="indicator-dot"></div>
-    </div>
-  </div>
-
-  <!-- Bottom Label -->
-  <div class="bottom-label">
-    voir bon
   </div>
 </div>
+
+<div class="status-indicators">
+  <div *ngFor="let status of statusIndicators" class="status-box" [ngClass]="status.color">
+    <span class="status-label">{{ status.label }}</span>
+  </div>
+</div>
+<app-footer></app-footer>
