@@ -3,19 +3,21 @@
     <button *ngIf="showBackButton" class="back-button" (click)="onBack()">
       <i class="fas fa-arrow-left"></i>
     </button>
-    <div class="logo-container" 
-         [routerLink]="showButtons ? ['/dashboard'] : null" 
+    <div class="logo-container"
+         [routerLink]="showButtons ? ['/dashboard'] : null"
          [class.clickable]="showButtons">
       <img src="assets/Vlogo.png" alt="Plant icon" class="logo-icon">
       <span class="brand">egAI</span>
     </div>
   </div>
   <div class="header-right" *ngIf="showButtons">
-    <a routerLink="/settings" class="settings-icon">
-      <i class="fas fa-cog"></i>
-    </a>
-    <button class="icon-button" (click)="onLogout()">
-      <i class="fas fa-sign-out-alt"></i>
-    </button>
+    <div class="header-icons">
+      <button class="icon-button">
+        <i class="fas fa-cog"></i>
+      </button>
+      <button class="icon-button" (click)="onLogout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
   </div>
-</header> 
+</header>

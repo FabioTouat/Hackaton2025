@@ -39,6 +39,9 @@ export class PlantCardComponent implements OnInit {
   plantId: string = '';
   plantName: string = '';
 
+  // Stocker la différence initiale en jours
+  private initialDiffDays: number | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router
@@ -72,20 +75,20 @@ export class PlantCardComponent implements OnInit {
   }
 
   startHarvest(): void {
-    // Obtenir la date actuelle
-    const currentDate = new Date();
-    
-    // Formater la date au format JJ/MM/AAAA
-    const formattedDate = currentDate.toLocaleDateString('fr-FR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
+    // Si c'est le premier clic, calculer et stocker la différence initiale
+    if (this.initialDiffDays === null) {
+      const plantingDate = new Date(this.plantInfo.plantingDate);
+      const firstHarvestDate = new Date(this.plantInfo.harvestDate);
+      const diffTime = firstHarvestDate.getTime() - plantingDate.getTime();
+      this.initialDiffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
 
-    // Mettre à jour la date de récolte
-    this.plantInfo.harvestDate = formattedDate;
+    // Utiliser la différence initiale stockée pour calculer la nouvelle date
+    const currentHarvestDate = new Date(this.plantInfo.harvestDate);
+    const newHarvestDate = new Date(currentHarvestDate.getTime() + (this.initialDiffDays * 24 * 60 * 60 * 1000));
 
-    
+    // Mettre à jour la date de maturation
+    this.plantInfo.harvestDate = newHarvestDate.toISOString().split('T')[0];
   }
 }
 

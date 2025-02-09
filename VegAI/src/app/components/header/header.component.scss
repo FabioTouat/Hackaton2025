@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       margin-left: -1rem;
-      
+
       .logo-icon {
         height: 50px;
         transform: translateY(-6px) translateX(38px);
@@ -59,4 +59,15 @@
       }
     }
   }
-} 
+}
+
+.header-icons {
+  margin-right: 20px;
+  gap: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button {
+  margin-right: 10px;
+}
