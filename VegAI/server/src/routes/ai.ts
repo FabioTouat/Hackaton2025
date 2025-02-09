@@ -1,6 +1,6 @@
 import express from 'express';
 import { Configuration, OpenAIApi } from 'openai';
-import auth from '../middleware/auth';
+import { auth } from '../middleware/auth';
 
 const router = express.Router();
 

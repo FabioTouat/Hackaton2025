@@ -30,6 +30,7 @@ export class ConnectionPageComponentComponent {
       .subscribe({
         next: (response: any) => {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('username', response.username);
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {

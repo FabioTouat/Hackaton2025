@@ -40,9 +40,8 @@ export class RegisterComponent {
       password: this.user.password
     }).subscribe({
       next: (response: any) => {
-        // Stocke le token dans le localStorage
         localStorage.setItem('token', response.token);
-        // Redirige vers le dashboard
+        localStorage.setItem('username', this.user.username);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {

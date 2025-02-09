@@ -5,6 +5,8 @@ import { VegAiDashboardComponent } from '../pages/homepage/veg-ai-dashboard.comp
 import { PotMonitoringComponent } from '../pages/list-page/pot-monitoring.component';
 import { PlantCardComponent } from '../pages/seeding-page/plant-card.component';
 import { RegisterComponent } from '../pages/register-page/register.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'pot-monitoring', component: PotMonitoringComponent },
   { path: 'plant-card', component: PlantCardComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({

@@ -9,6 +9,7 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
 import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register-page/register.component';
+import { ThemeService } from './services/theme.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,15 @@ import { RegisterComponent } from './pages/register-page/register.component';
     HttpClientModule,
     RegisterComponent
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private themeService: ThemeService) {
+    // Initialiser le thème au démarrage de l'application
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.themeService.setDarkTheme(true);
+    }
+  }
+}
