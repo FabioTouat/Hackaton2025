@@ -5,6 +5,7 @@ import connectDB from './config/database';
 import authRoutes from './routes/auth';
 import aiRoutes from './routes/ai';
 import vegetablesRoutes from './routes/vegetables';
+import potsRoutes from './routes/pots';
 import { populateVegetables } from './models/vegetable';
 dotenv.config();
 
@@ -23,6 +24,7 @@ app
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/vegetables', vegetablesRoutes);
+app.use('/api/pots', potsRoutes);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

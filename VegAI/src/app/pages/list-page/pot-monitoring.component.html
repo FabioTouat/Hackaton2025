@@ -23,7 +23,9 @@
 
     <!-- Main Content -->
     <main class="main-content">
-      <section class="pot-details">
+      @if(currentPot) {
+    
+      <section class="pot-details" >
         
         <!-- Nouvelle section d'informations du pot -->
         <div class="pot-info">
@@ -139,7 +141,7 @@
           </div>
 
           <div class="plant-list">
-            <div *ngFor="let plant of currentPotPlants" class="plant-item">
+            <div *ngFor="let plant of currentPot?.plants" class="plant-item">
               <span>{{ getPlantDisplayName(plant) }}</span>
               <div class="plant-actions">
                 <button class="info-button" (click)="onPlantInfo(plant)">
@@ -157,8 +159,13 @@
         <button class="add-button analysis-button" (click)="onAnalyzeClick()">
           <i class="fas fa-microscope"></i> Analyser la terre
         </button>
-      </section>
+      </section>  }@else {
+        <div class="no-pot-selected">
+          <p>Veuillez sélectionner un pot pour voir ses détails</p>
+        </div>
+      }
     </main>
+
 
     <!-- Environmental Data Sidebar -->
     <aside class="env-sidebar">
@@ -197,21 +204,7 @@
           </div>
         </div>
 
-        <div class="env-item">
-          <h3>État de la plante</h3>
-          <div class="data-row">
-            <i class="fas fa-ruler-vertical"></i>
-            <span>Hauteur: {{ environmentalData.plantHeight }}cm</span>
-          </div>
-          <div class="data-row">
-            <i class="fas fa-heart"></i>
-            <span>Santé: {{ environmentalData.healthLevel }}</span>
-          </div>
-          <div class="data-row">
-            <i class="fas fa-bug"></i>
-            <span>Parasites: {{ environmentalData.pestPresence }}</span>
-          </div>
-        </div>
+        
       </div>
     </aside>
   </div>
