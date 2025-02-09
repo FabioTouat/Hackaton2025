@@ -2,7 +2,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color);
   color: var(--text-color);
 }
 
@@ -58,7 +57,8 @@
 .main-content {
   padding: 2rem;
   overflow-y: auto;
-  background-color: var(--content-bg);
+  background-color: #ffffff;
+  
 
   .pot-details {
     h2 {
@@ -500,6 +500,8 @@
       }
     }
   }
+}
+
 .monitoring-content {
   flex: 1;
   padding: 2rem;
@@ -510,4 +512,69 @@
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   // ... autres styles
+}
+
+.pot-info {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+
+  .pot-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+
+    i {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      color: var(--text-color);
+      font-size: 1.3rem;
+      margin: 0;
+    }
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-color);
+
+      i {
+        color: var(--text-secondary);
+        width: 20px;
+      }
+
+      .enabled {
+        color: #4CAF50;
+        font-weight: 500;
+      }
+
+      .operational {
+        color: #4CAF50;
+        font-weight: 500;
+      }
+
+      span span:not(.enabled):not(.operational) {
+        color: #f44336;
+        font-weight: 500;
+      }
+    }
+  }
 }

@@ -5,6 +5,16 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { Router } from '@angular/router';
 
+interface UserProfile {
+  username: string;
+  email: string;
+  stats: {
+    plantsHarvested: number;
+    co2Saved: number;
+    moneySaved: number;
+  };
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,9 +23,14 @@ import { Router } from '@angular/router';
   imports: [CommonModule, HeaderComponent, FooterComponent]
 })
 export class ProfileComponent implements OnInit {
-  userProfile = {
+  userProfile: UserProfile = {
     username: '',
-    email: ''
+    email: '',
+    stats: {
+      plantsHarvested: 0,
+      co2Saved: 0,
+      moneySaved: 0
+    }
   };
   error: string = '';
 

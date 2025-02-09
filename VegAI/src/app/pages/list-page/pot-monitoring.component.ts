@@ -15,6 +15,15 @@ interface Plant {
 interface Pot {
   name: string;
   plants: Plant[];
+  autoWatering: boolean;
+  size: {
+    width: number;
+    height: number;
+  };
+  sensors: {
+    infrared: string;
+    npr: string;
+  };
 }
 
 interface PlantTemplate {
@@ -40,13 +49,25 @@ export class PotMonitoringComponent {
       name: 'Pot 1',
       plants: [
         { name: 'Concombre', type: 'Légume', quantity: 1, id: '1' }
-      ]
+      ],
+      autoWatering: true,
+      size: { width: 30, height: 40 },
+      sensors: {
+        infrared: 'Opérationnel',
+        npr: 'Opérationnel'
+      }
     },
     {
       name: 'Pot 2',
       plants: [
         { name: 'Piment', type: 'Épice', quantity: 1, id: '2' }
-      ]
+      ],
+      autoWatering: false,
+      size: { width: 25, height: 35 },
+      sensors: {
+        infrared: 'Opérationnel',
+        npr: 'En maintenance'
+      }
     }
   ];
   selectedPot = this.pots[1].name;
@@ -54,6 +75,10 @@ export class PotMonitoringComponent {
   get currentPotPlants(): Plant[] {
     const pot = this.pots.find(p => p.name === this.selectedPot);
     return pot ? pot.plants : [];
+  }
+
+  get currentPot(): Pot | undefined {
+    return this.pots.find(p => p.name === this.selectedPot);
   }
 
   environmentalData = {
@@ -167,7 +192,13 @@ export class PotMonitoringComponent {
     if (this.newPotCode && this.isValidPotCode()) {
       const newPot: Pot = {
         name: `Pot ${this.pots.length + 1}`,
-        plants: []
+        plants: [],
+        autoWatering: true,
+        size: { width: 30, height: 40 },
+        sensors: {
+          infrared: 'Opérationnel',
+          npr: 'Opérationnel'
+        }
       };
       this.pots = [...this.pots, newPot];
       this.selectedPot = newPot.name;
@@ -179,6 +210,8 @@ export class PotMonitoringComponent {
   onCancelAddPot() {
     this.showAddPotForm = false;
     this.newPotCode = '';
+  }
+
   onAnalyzeClick() {
     this.router.navigate(['/dirt-analyze']);
   }

@@ -1,14 +1,7 @@
-.dashboard-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
 .dashboard-content {
   flex: 1;
   padding: 2rem;
+
 }
 
 .cards-container {
@@ -18,33 +11,37 @@
   margin-top: 2rem;
 }
 
-.welcome-section {
-  padding: 2rem;
-  background-color: var(--content-bg);
-  color: var(--text-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  h2 {
-    font-size: 2rem;
-    font-weight: normal;
-    margin: 0;
-  }
-
-  .guide-button {
-    color: black;
-    margin-left: auto;
-  }
-}
-
 .main-content {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
   padding: 3rem;
-  background-color: var(--content-bg);
+  background-color: #ffffff;
+
+  .welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: normal;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .guide-button {
+      color: black;
+      margin-left: auto;
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+  }
 }
 
 .logo-icon {
@@ -122,5 +119,18 @@
 
   &:hover {
     color: #333;
+  }
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  app-footer {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
