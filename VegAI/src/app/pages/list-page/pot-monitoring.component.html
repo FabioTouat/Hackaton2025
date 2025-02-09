@@ -108,15 +108,19 @@
     <!-- Environmental Data Sidebar -->
     <aside class="env-sidebar">
       <div class="env-data">
-        <div class="env-item">
-          <h3>Humidité</h3>
-          <div class="circular-progress">
-            <div class="progress-circle" [style.--progress]="environmentalData.humidity">
-              <div class="inner-circle">
-                <span>{{ environmentalData.humidity }}%</span>
+        <div class="progress-container">
+          <div class="env-item">
+            <h3>Humidité</h3>
+            <div class="circular-progress">
+              <div class="progress-circle" [style.--progress]="environmentalData.humidity">
+                <div class="inner-circle">
+                  <span>{{ environmentalData.humidity }}%</span>
+                </div>
               </div>
             </div>
           </div>
+
+          
         </div>
 
         <div class="env-item">
@@ -127,15 +131,30 @@
         </div>
 
         <div class="env-item">
-          <div class="day-night">
-            <div class="time-item">
-              <i class="fas fa-sun"></i>
-              <span>heure lumière: {{ environmentalData.dayHour }}</span>
-            </div>
-            <div class="time-item">
-              <i class="fas fa-moon"></i>
-              <span>heure nuit: {{ environmentalData.nightHour }}</span>
-            </div>
+          <h3>Luminosité</h3>
+          <div class="data-row">
+            <i class="fas fa-sun"></i>
+            <span>{{ environmentalData.lightIntensity }} lux</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-clock"></i>
+            <span>{{ environmentalData.lightHour }}h/jour</span>
+          </div>
+        </div>
+
+        <div class="env-item">
+          <h3>État de la plante</h3>
+          <div class="data-row">
+            <i class="fas fa-ruler-vertical"></i>
+            <span>Hauteur: {{ environmentalData.plantHeight }}cm</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-heart"></i>
+            <span>Santé: {{ environmentalData.healthLevel }}</span>
+          </div>
+          <div class="data-row">
+            <i class="fas fa-bug"></i>
+            <span>Parasites: {{ environmentalData.pestPresence }}</span>
           </div>
         </div>
       </div>

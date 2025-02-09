@@ -59,8 +59,11 @@ export class PotMonitoringComponent {
   environmentalData = {
     humidity: 25,
     temperature: 25,
-    dayHour: '12pm',
-    nightHour: '23pm'
+    lightHour: '12',
+    lightIntensity: '1000',
+    plantHeight: '10',
+    healthLevel: 'Bon',
+    pestPresence: 'Aucune',
   };
 
   showAddPlantForm = false;
