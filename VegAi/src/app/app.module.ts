@@ -15,7 +15,6 @@ import { RegisterComponent } from './pages/register-page/register.component';
 import { ThemeService } from './services/theme.service';
 import { Routes } from '@angular/router';
 import { DirtAnalyzeComponent } from './pages/dirt-analyze/dirt-analyze.component';
-import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -26,6 +25,7 @@ import { MatCardModule } from '@angular/material/card';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ConnectionPageComponentComponent,
     HeaderComponent,
@@ -35,7 +35,6 @@ import { MatCardModule } from '@angular/material/card';
     DashboardCardComponent,
     HttpClientModule,
     RegisterComponent
-
 
   ],
   providers: [ThemeService],

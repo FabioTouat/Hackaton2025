@@ -21,7 +21,7 @@
 }
 
 .measurement-column {
-  width: 100%;
+  width: 50%;
 }
 
 .measurement-box {
@@ -70,6 +70,29 @@
   border: none;
   cursor: pointer;
   margin-left: auto;
+  position: relative;
+  
+  &[data-tooltip] {
+    &:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 15px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      min-width: 200px;
+      max-width: 300px;
+      margin-left: 12px;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+  }
 }
 
 .info-icon {
@@ -114,4 +137,17 @@
 
 app-footer {
   margin-top: auto;
+}
+
+.ph-label {
+  font-size: 0.8rem;
+  margin-left: 8px;
+  color: white;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 14px;
+  max-width: 250px;
+  white-space: pre-wrap;
+  padding: 8px 12px;
 }

@@ -6,12 +6,15 @@
       <div *ngFor="let measurement of leftColumn" class="measurement-box">
         <div class="measurement-label">{{ measurement.label }}</div>
         <div class="value-container">
-          <div class="value-box">
+          <div class="value-box" [style.background-color]="getValueColor(measurement)">
             {{ measurement.value }}
             <span *ngIf="measurement.unit" class="unit">{{ measurement.unit }}</span>
+            <span *ngIf="measurement.type === 'ph'" class="ph-label">
+              {{ getPhLabel(measurement.value) }}
+            </span>
           </div>
-          <button class="info-button" >
-            <i class="fas fa-info-circle info-icon" ></i>
+          <button class="info-button" [attr.data-tooltip]="measurement.tooltip">
+            <i class="fas fa-info-circle info-icon"></i>
           </button>
         </div>
       </div>
