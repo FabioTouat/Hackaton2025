@@ -12,7 +12,6 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
 import { HeaderComponent } from './components/header/header.component';
 import { Routes } from '@angular/router';
 import { DirtAnalyzeComponent } from './pages/dirt-analyze/dirt-analyze.component';
-import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -23,13 +22,14 @@ import { MatCardModule } from '@angular/material/card';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ConnectionPageComponentComponent,
     HeaderComponent,
     PotMonitoringComponent,
-    DirtAnalyzeComponent,
-    VegAiDashboardComponent,
 
+    VegAiDashboardComponent,
+    DashboardCardComponent
 
   ],
   providers: [],
