@@ -7,15 +7,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface Plant {
+  _id?: string;
   name: string;
   variety: string;
-  id?: string;
   quantity: number;
   plantingDate: string;
   harvestDate?: string;
 }
 
+
 interface Pot {
+  _id?: string;
   name: string;
   plants: Plant[];
   autoWatering: boolean;
@@ -59,36 +61,11 @@ interface VegetableData {
   ]
 })
 export class PotMonitoringComponent implements OnInit {
-  pots: Pot[] = [
-    {
-      name: 'Pot 1',
-      plants: [
-        { name: 'Concombre', variety: 'Légume', quantity: 1, id: '1', plantingDate: new Date().toISOString().split('T')[0] }
-      ],
-      autoWatering: true,
-      size: { width: 30, height: 40 },
-      sensors: {
-        infrared: 'Opérationnel',
-        npr: 'Opérationnel'
-      }
-    },
-    {
-      name: 'Pot 2',
-      plants: [
-        { name: 'Piment', variety: 'Épice', quantity: 1, id: '2', plantingDate: new Date().toISOString().split('T')[0] }
-      ],
-      autoWatering: false,
-      size: { width: 25, height: 35 },
-      sensors: {
-        infrared: 'Opérationnel',
-        npr: 'En maintenance'
-      }
-    }
-  ];
-  selectedPot = this.pots[1].name;
+  pots: Pot[] = [];
+  selectedPot: string = "";
   
   get currentPotPlants(): Plant[] {
-    const pot = this.pots.find(p => p.name === this.selectedPot);
+    const pot = this.pots.find(p => p._id === this.selectedPot);
     return pot ? pot.plants : [];
   }
 
@@ -108,15 +85,6 @@ export class PotMonitoringComponent implements OnInit {
 
   showAddPlantForm = false;
   availablePlants: PlantTemplate[] = [
-    { name: 'Tomate', type: 'Légume' },
-    { name: 'Concombre', type: 'Légume' },
-    { name: 'Poivron', type: 'Légume' },
-    { name: 'Basilic', type: 'Herbe' },
-    { name: 'Menthe', type: 'Herbe' },
-    { name: 'Thym', type: 'Herbe' },
-    { name: 'Fraise', type: 'Fruit' },
-    { name: 'Piment', type: 'Épice' },
-    { name: 'Ciboulette', type: 'Herbe' }
   ];
 
   newPlant: Plant = {
@@ -141,6 +109,7 @@ export class PotMonitoringComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchVegetables();
+    this.fetchPots();
   }
 
   fetchVegetables(): void {
@@ -157,18 +126,29 @@ export class PotMonitoringComponent implements OnInit {
       });
   }
 
+  fetchPots(): void {
+    this.http.get<Pot[]>('http://localhost:5000/api/pots/')
+      .subscribe({
+        next: (data) => {
+          this.pots = data;
+        },
+        error: (err) => console.error('Erreur lors du fetch des pots', err)
+      });
+  }
+
   onPlantInfo(plant: Plant) {
     const selectedVegetable = this.vegetables.find(v => v.name === plant.name);
     console.log(selectedVegetable?.imageUrl);
     this.router.navigate(['/plant-card'], {
       queryParams: {
-        plantId: plant.id || '1',
+        plantId: plant._id || '1',
         plantName: plant.name,
         plantVariety: plant.variety,
         plantQuantity: plant.quantity,
         plantingDate: plant.plantingDate,
         harvestDate: plant.harvestDate,
         imageUrl: selectedVegetable?.imageUrl
+
       }
     });
   }
@@ -180,6 +160,7 @@ export class PotMonitoringComponent implements OnInit {
   }
 
   onSubmitPlant() {
+    console.log(this.pots);
     if (this.newPlant.name && this.newPlant.variety && this.newPlant.quantity > 0) {
       const selectedVariety = this.availableVarieties.find(v => v.name === this.newPlant.variety);
          if (selectedVariety) {
@@ -187,12 +168,20 @@ export class PotMonitoringComponent implements OnInit {
         }
       const newPlantWithId: Plant = {
         ...this.newPlant,
-        id: Date.now().toString()
       };
 
       const potIndex = this.pots.findIndex(p => p.name === this.selectedPot);
       if (potIndex !== -1) {
         this.pots[potIndex].plants = [...this.pots[potIndex].plants, newPlantWithId];
+        // Persister le pot mis à jour sur le serveur si l'identifiant est présent
+        const potToUpdate = this.pots[potIndex];
+        if (potToUpdate._id) {
+          this.http.put(`http://localhost:5000/api/pots/${potToUpdate._id}`, potToUpdate)
+            .subscribe({
+              next: (response) => console.log('Pot mis à jour avec la nouvelle plante:', response),
+              error: (err) => console.error('Erreur lors de la mise à jour du pot:', err)
+            });
+        }
       }
 
       this.newPlant = { name: '', variety: '', quantity: 1, plantingDate: new Date().toISOString().split('T')[0] };
@@ -226,12 +215,13 @@ export class PotMonitoringComponent implements OnInit {
 
   onDeletePlant(plantToDelete: Plant) {
     const potIndex = this.pots.findIndex(p => p.name === this.selectedPot);
-    if (potIndex !== -1 && plantToDelete.id) {
+    if (potIndex !== -1 && plantToDelete._id) {
       this.pots[potIndex].plants = this.pots[potIndex].plants.filter(
-        plant => plant.id !== plantToDelete.id
+        plant => plant._id !== plantToDelete._id
       );
       console.log('Plante supprimée:', plantToDelete.name);
     }
+
   }
 
   onPotSelect(pot: string) {
@@ -258,10 +248,22 @@ export class PotMonitoringComponent implements OnInit {
           npr: 'Opérationnel'
         }
       };
-      this.pots = [...this.pots, newPot];
-      this.selectedPot = newPot.name;
-      this.showAddPotForm = false;
-      this.newPotCode = '';
+      
+      // Envoyer le nouveau pot au serveur et récupérer le pot créé avec son _id
+      this.http.post<{ message: string, pot: Pot }>('http://localhost:5000/api/pots/', newPot)
+        .subscribe({
+          next: (response) => {
+            // On ajoute le pot retourné à la liste locale
+            this.pots.push(response.pot);
+            // Utiliser l'_id du nouveau pot pour le sélectionner
+            this.selectedPot = response.pot._id!;
+            this.showAddPotForm = false;
+            this.newPotCode = '';
+          },
+          error: (err) => {
+            console.error('Erreur lors de l\'ajout du pot:', err);
+          }
+        });
     }
   }
   calculateHarvestDate(plantingDate: string, maturationDays: number): string {
