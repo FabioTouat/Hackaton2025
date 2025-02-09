@@ -50,9 +50,11 @@ export class PlantCardComponent implements OnInit {
       this.plantName = params['plantName'] || '';
       this.plantInfo.variety = params['plantVariety'] || '';
       this.plantInfo.plantingDate = params['plantingDate'] || '';
+      this.plantInfo.harvestDate = params['harvestDate'] || '';
       this.plantInfo.name = this.plantName;  // Met à jour le nom de la plante
       this.plantInfo.plantCount = Number(params['plantQuantity']) || 1;  // Récupération de la quantité
       
+
 
       if (this.plantId) {
         this.loadPlantDetails(this.plantId);

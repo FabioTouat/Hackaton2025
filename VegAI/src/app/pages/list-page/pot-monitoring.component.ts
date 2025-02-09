@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -11,6 +12,7 @@ interface Plant {
   id?: string;
   quantity: number;
   plantingDate: string;
+  harvestDate?: string;
 }
 
 interface Pot {
@@ -32,6 +34,16 @@ interface PlantTemplate {
   type: string;
 }
 
+interface VegetableVariety {
+  name: string;
+  maturationDays: number;
+}
+
+interface VegetableData {
+  name: string;
+  varieties: VegetableVariety[];
+}
+
 @Component({
   selector: 'app-pot-monitoring',
   templateUrl: './pot-monitoring.component.html',
@@ -41,10 +53,11 @@ interface PlantTemplate {
     CommonModule,
     FooterComponent,
     HeaderComponent,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
-export class PotMonitoringComponent {
+export class PotMonitoringComponent implements OnInit {
   pots: Pot[] = [
     {
       name: 'Pot 1',
@@ -120,7 +133,28 @@ export class PotMonitoringComponent {
 
   today = new Date().toISOString().split('T')[0];  // Format YYYY-MM-DD pour l'attribut max
 
-  constructor(private router: Router) {}
+  vegetables: VegetableData[] = [];
+  availableVarieties: VegetableVariety[] = [];
+
+  constructor(private router: Router, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchVegetables();
+  }
+
+  fetchVegetables(): void {
+    this.http.get<VegetableData[]>('http://localhost:5000/api/vegetables/')
+      .subscribe({
+        next: (data) => {
+          this.vegetables = data;
+          this.availablePlants = data.map(veg => ({
+            name: veg.name,
+            type: veg.name  // On garde le type comme le nom pour la compatibilité
+          }));
+        },
+        error: (err) => console.error('Erreur lors du fetch des vegetables', err)
+      });
+  }
 
   onPlantInfo(plant: Plant) {
     this.router.navigate(['/plant-card'], {
@@ -129,7 +163,8 @@ export class PotMonitoringComponent {
         plantName: plant.name,
         plantVariety: plant.variety,
         plantQuantity: plant.quantity,
-        plantingDate: plant.plantingDate
+        plantingDate: plant.plantingDate,
+        harvestDate: plant.harvestDate
       }
     });
   }
@@ -141,6 +176,10 @@ export class PotMonitoringComponent {
 
   onSubmitPlant() {
     if (this.newPlant.name && this.newPlant.variety && this.newPlant.quantity > 0) {
+      const selectedVariety = this.availableVarieties.find(v => v.name === this.newPlant.variety);
+         if (selectedVariety) {
+            this.newPlant.harvestDate = this.calculateHarvestDate(this.newPlant.plantingDate, selectedVariety.maturationDays);
+        }
       const newPlantWithId: Plant = {
         ...this.newPlant,
         id: Date.now().toString()
@@ -171,9 +210,13 @@ export class PotMonitoringComponent {
   }
 
   onPlantSelect() {
-    const selectedPlant = this.availablePlants.find(p => p.name === this.newPlant.name);
-    if (selectedPlant) {
-      this.newPlant.variety = selectedPlant.type;
+    const selectedVegetable = this.vegetables.find(v => v.name === this.newPlant.name);
+    if (selectedVegetable) {
+      this.availableVarieties = selectedVegetable.varieties;
+      console.log(this.availableVarieties);
+      if (this.availableVarieties.length > 0) {
+        this.newPlant.variety = this.availableVarieties[0].name;
+      }
     }
   }
 
@@ -217,7 +260,13 @@ export class PotMonitoringComponent {
       this.newPotCode = '';
     }
   }
-
+  calculateHarvestDate(plantingDate: string, maturationDays: number): string {
+    
+    const date = new Date(plantingDate);
+    date.setDate(date.getDate() + maturationDays);
+    console.log(date);
+    return date.toISOString().split('T')[0];
+  }
   onCancelAddPot() {
     this.showAddPotForm = false;
     this.newPotCode = '';

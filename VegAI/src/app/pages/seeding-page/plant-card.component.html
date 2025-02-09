@@ -1,5 +1,5 @@
 <div class="page-container">
-  <app-header [showButtons]="true" [showBackButton]="true" (onBackClick)="onBack()"></app-header>
+  <app-header></app-header>
 
   <div class="content">
     <div class="plant-card">
@@ -15,15 +15,15 @@
             <span class="value">{{ plantInfo.plantingDate }}</span>
           </div>
           <div class="detail-item">
-            <span class="label">Date de récolte estimée:</span>
+            <span class="label">Date de maturation estimée:</span>
             <span class="value">{{ plantInfo.harvestDate }}</span>
           </div>
           <div class="detail-item">
-            <span class="label">Durée exposition lumineuse:</span>
+            <span class="label">Durée d'exposition lumineuse:</span>
             <span class="value">{{ plantInfo.lightExposure }}</span>
           </div>
           <div class="detail-item">
-            <span class="label">Temperature idéal:</span>
+            <span class="label">Température idéale:</span>
             <span class="value">{{ plantInfo.idealTemperature }}°C</span>
           </div>
           <div class="detail-item">

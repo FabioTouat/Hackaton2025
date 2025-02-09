@@ -104,12 +104,16 @@
 
               <div class="form-group">
                 <label for="plantType">Variété de la plante</label>
-                <input 
-                  type="text" 
+                <select 
                   id="plantType"
-                  [value]="newPlant.variety"
+                  [(ngModel)]="newPlant.variety"
                   name="plantType"
-                  disabled>
+                  required>
+                  <option value="">Sélectionner une variété</option>
+                  <option *ngFor="let variety of availableVarieties" [value]="variety.name">
+                    {{ variety.name }}
+                  </option>
+                </select>
               </div>
 
               <div class="form-group">
