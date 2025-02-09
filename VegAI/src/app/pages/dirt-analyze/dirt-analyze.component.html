@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="dirt-analyze-container">
+  <div class="measurements-grid">
+    <!-- Left Column -->
+    <div class="measurement-column">
+      <div *ngFor="let measurement of leftColumn" class="measurement-box">
+        <div class="measurement-label">{{ measurement.label }}</div>
+        <div class="value-container">
+          <div class="value-box">
+            {{ measurement.value }}
+            <span *ngIf="measurement.unit" class="unit">{{ measurement.unit }}</span>
+          </div>
+          <button class="info-button" >
+            <i class="fas fa-info-circle info-icon" ></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="status-indicators">
+  <div *ngFor="let status of statusIndicators" class="status-box" [ngClass]="status.color">
+    <span class="status-label">{{ status.label }}</span>
+  </div>
+</div>
+<app-footer></app-footer>

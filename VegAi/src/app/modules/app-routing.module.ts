@@ -7,6 +7,7 @@ import { PlantCardComponent } from '../pages/seeding-page/plant-card.component';
 import { RegisterComponent } from '../pages/register-page/register.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
+import { DirtAnalyzeComponent } from '../pages/dirt-analyze/dirt-analyze.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'dirt-analyze', component: DirtAnalyzeComponent },
 ];
 
 @NgModule({
